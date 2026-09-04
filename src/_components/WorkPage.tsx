@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useParams } from '@tanstack/react-router';
-import { works } from './data';
-import { usePageMeta } from './usePageMeta';
+import { works } from '../data';
+import { usePageMeta } from '../usePageMeta';
 
 export function WorkPage() {
   const { workSlug } = useParams({ from: '/works/$workSlug' });
@@ -24,7 +24,11 @@ export function WorkPage() {
       </header>
 
       <section className="relative mt-[50px] h-[72vh] min-h-[520px] max-h-[820px] overflow-hidden bg-[#d9ff36]">
-        <img className="h-full min-h-[520px] w-full object-cover" src={work.hero ?? work.image} alt={work.title} />
+        {work.heroType === 'video' ? (
+          <video className="h-full min-h-[520px] w-full object-cover" src={work.hero} autoPlay muted loop playsInline preload="metadata" aria-label={work.title} />
+        ) : (
+          <img className="h-full min-h-[520px] w-full object-cover" src={work.hero ?? work.image} alt={work.title} />
+        )}
         <h1 className="sr-only">{work.title}</h1>
       </section>
 
@@ -47,11 +51,21 @@ export function WorkPage() {
               {section.paragraphs.map((paragraph) => <p key={paragraph.slice(0, 48)} className="my-0 mb-8 text-[clamp(25px,3.3vw,50px)] leading-[1.06] tracking-[-.045em] last:mb-0">{paragraph}</p>)}
             </div>
           </div>
-          {section.media && <div className={`grid ${section.media.length > 1 ? 'md:grid-cols-2' : ''}`}>
-            {section.media.map((src, mediaIndex) => <img key={src} className={`aspect-[16/10] h-full w-full object-cover ${section.media?.length === 3 && mediaIndex === 0 ? 'md:col-span-2 md:aspect-[16/8]' : ''}`} src={src} alt="" loading="lazy" />)}
-          </div>}
         </section>
       ))}
+
+      {work.media.length > 0 && (
+        <section className="grid border-b border-white/30 md:grid-cols-2" aria-label={`Media di ${work.title}`}>
+          {work.media.map((item, mediaIndex) => {
+            const className = `aspect-video h-full w-full bg-black object-cover ${mediaIndex % 5 === 0 ? 'md:col-span-2 md:aspect-[16/8]' : ''}`;
+            return item.type === 'video' ? (
+              <video key={item.src} className={className} src={item.src} autoPlay muted loop playsInline preload="metadata" aria-label={`${work.title}, video ${mediaIndex + 1}`} />
+            ) : (
+              <img key={item.src} className={className} src={item.src} alt="" loading="lazy" />
+            );
+          })}
+        </section>
+      )}
 
       {work.credits && <section className="border-b border-white/30 p-[76px_30px_96px] max-sm:p-[54px_18px_70px]">
         <h2 className="mb-14 mt-0 text-xs font-normal uppercase tracking-[.08em] opacity-60">Team</h2>

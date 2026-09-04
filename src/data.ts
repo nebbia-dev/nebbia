@@ -1,3 +1,5 @@
+import { projectMedia, type ProjectMedia } from './projectMedia';
+
 export type ProjectSection = { title: string; paragraphs: string[]; media?: string[] };
 export type Credit = { role: string; names: string[] };
 export type Work = {
@@ -6,11 +8,13 @@ export type Work = {
   services: string;
   image: string;
   hero: string;
+  heroType: ProjectMedia['type'];
   year: string;
   client: string;
   statement: string;
   challenge: string;
   sections: ProjectSection[];
+  media: ProjectMedia[];
   credits?: Credit[];
 };
 
@@ -18,7 +22,7 @@ const home = ['/assets/work-cremonese.png', '/assets/work-martinorossi.webp', '/
 const section = (title: string, paragraphs: string[], media?: string[]): ProjectSection => ({ title, paragraphs, media });
 const credit = (role: string, ...names: string[]): Credit => ({ role, names });
 
-export const works: Work[] = [
+const baseWorks: Omit<Work, 'heroType' | 'media'>[] = [
   {
     slug: 'cremonese-120', title: '120° U.S. Cremonese', services: 'Art direction / Event / Video / Web', image: home[0], hero: '/projects/cremonese-120/hero.png', year: '2023', client: 'US Cremonese',
     statement: 'Un’identità celebrativa che unisce memoria sportiva, città e nuove esperienze digitali.',
@@ -159,14 +163,19 @@ export const works: Work[] = [
   },
 ];
 
+export const works: Work[] = baseWorks.map((work) => {
+  const media = projectMedia[work.slug] ?? [];
+  const hero = media[0];
+  const preview = media.find((item) => item.type === 'image');
+
+  return {
+    ...work,
+    image: preview?.src ?? work.image,
+    hero: hero?.src ?? work.hero,
+    heroType: hero?.type ?? 'image',
+    media: media.slice(1),
+    sections: work.sections.map(({ title, paragraphs }) => ({ title, paragraphs })),
+  };
+});
+
 export const featuredWorks = works.slice(0, 3);
-export const team = [
-  ['Filippo Mondini', 'Founder', '/assets/team-filippo.jpg'],
-  ['Paolo Bodini', 'Project Manager', '/assets/team-paolo.jpg'],
-  ['Davide Uberti', 'Phygital Product Manager', '/assets/team-davide.jpg'],
-  ['Fabrizio Venosa', 'Multimedia Executive Producer', '/assets/team-fabrizio.jpg'],
-  ['Andrea Girelli', 'Software Engineer', '/assets/team-andrea.png'],
-  ['Stefano Muchetti', 'Videomaker / Director', '/assets/team-stefano.jpg'],
-  ['Yuri Dalla Noce', 'UI/UX Designer', '/assets/team-yuri.jpg'],
-  ['Luigi Rubens Crispino', '3D Artist', '/assets/team-luigi.jpg'],
-] as const;

@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { Link } from '@tanstack/react-router';
-import { featuredWorks, team, works } from './data';
+import { featuredWorks, works } from './data';
 import { usePageMeta } from './usePageMeta';
 
 const line = 'border-white/30';
@@ -8,7 +8,6 @@ const field = `h-[54px] w-full border border-white/30 bg-transparent px-[14px] t
 
 export function HomePage() {
   const [worksView, setWorksView] = useState<'selected' | 'all'>('selected');
-  const [showAllTeam, setShowAllTeam] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [time, setTime] = useState('');
   const [sent, setSent] = useState(false);
@@ -35,7 +34,7 @@ export function HomePage() {
           <img className="w-[222px] max-sm:w-[174px]" src="/assets/nebbia-logo.svg" alt="Nebbia Phygital Lab" />
         </a>
         <nav className="flex items-center gap-6 text-[13px] max-md:hidden" aria-label="Navigazione principale">
-          {['Lavori', 'Team', 'Contatti'].map((label) => <a className="nav-link" href={`#${label.toLowerCase()}`} key={label}>{label}</a>)}
+          {['Lavori', 'Contatti'].map((label) => <a className="nav-link" href={`#${label.toLowerCase()}`} key={label}>{label}</a>)}
           <a className="nav-link" href="#lavora-con-noi">Lavora con noi</a>
           <span className="ml-2 uppercase"><b>IT</b> / EN</span>
         </nav>
@@ -48,7 +47,7 @@ export function HomePage() {
 
       <div id="mobile-menu" className={`fixed inset-x-0 bottom-[42px] top-[50px] z-40 flex flex-col justify-between bg-[#1a1a1a] p-[35px_24px] transition duration-300 md:hidden ${menuOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-3 opacity-0'}`}>
         <nav className="flex flex-col" aria-label="Navigazione mobile">
-          {[['Lavori', 'lavori'], ['Team', 'team'], ['Contatti', 'contatti'], ['Lavora con noi', 'lavora-con-noi']].map(([label, id]) => <a className="text-[clamp(45px,12vw,74px)] leading-[1.05] tracking-[-.06em]" href={`#${id}`} onClick={() => setMenuOpen(false)} key={id}>{label}</a>)}
+          {[['Lavori', 'lavori'], ['Contatti', 'contatti'], ['Lavora con noi', 'lavora-con-noi']].map(([label, id]) => <a className="text-[clamp(45px,12vw,74px)] leading-[1.05] tracking-[-.06em]" href={`#${id}`} onClick={() => setMenuOpen(false)} key={id}>{label}</a>)}
         </nav>
         <p className="m-0 text-xs">IT / EN</p>
       </div>
@@ -94,22 +93,6 @@ export function HomePage() {
             ))}
           </div>
         )}
-      </section>
-
-      <section className="scroll-mt-[49px]" id="team">
-        <SectionTitle title="Team" detail={`${showAllTeam ? '08' : '04'} persone`} />
-        <div className="grid grid-cols-4 max-lg:grid-cols-2 max-sm:grid-cols-1">
-          {team.slice(0, showAllTeam ? team.length : 4).map(([name, role, image], index) => (
-            <article className={`group min-w-0 border-b border-white/30 pb-[22px] ${index % 4 !== 3 ? 'border-r' : ''} ${index % 2 === 0 ? 'max-lg:border-r' : 'max-lg:border-r-0'} max-sm:border-r-0`} key={name}>
-              <div className="h-[330px] overflow-hidden bg-[#292929] max-lg:h-[390px] max-sm:h-[115vw] max-sm:max-h-[620px]">
-                <img className="h-full w-full object-cover grayscale transition duration-500 group-hover:scale-[1.025] group-hover:grayscale-0" src={image} alt={name} loading="lazy" />
-              </div>
-              <h3 className="mx-[18px] mb-0 mt-[17px] text-[clamp(18px,1.6vw,23px)] font-extralight tracking-[-.03em]">{name}</h3>
-              <p className="mx-[18px] mb-0 mt-0.5 text-xs opacity-60">{role}</p>
-            </article>
-          ))}
-        </div>
-        <button className="flex h-[55px] w-full cursor-pointer items-center justify-between border-0 border-b border-white/30 bg-[#1a1a1a] px-[30px] uppercase transition hover:bg-[#f0eee8] hover:text-[#1a1a1a] max-sm:px-[18px]" type="button" onClick={() => setShowAllTeam(!showAllTeam)}><span>{showAllTeam ? 'Riduci' : 'Vedi tutti'}</span><b className="text-2xl font-extralight" aria-hidden="true">{showAllTeam ? '−' : '+'}</b></button>
       </section>
 
       <section className="scroll-mt-[49px]" id="contatti">
