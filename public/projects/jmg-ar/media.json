@@ -1,0 +1,41 @@
+{
+  "source": "https://nebbialab.it/works/jmg-a-r-configurator/",
+  "media": [
+    {
+      "index": 0,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/cover_jmg.webp",
+      "filename": "cover_jmg.webp",
+      "type": "image"
+    },
+    {
+      "index": 1,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/video_app_jmg.mp4",
+      "filename": "video_app_jmg.mp4",
+      "type": "video"
+    },
+    {
+      "index": 2,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/Gif_Wireframe_JMG_01.gif",
+      "filename": "Gif_Wireframe_JMG_01.gif",
+      "type": "image"
+    },
+    {
+      "index": 3,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/ilya-pavlov-OqtafYT5kTw-unsplash-1.png",
+      "filename": "ilya-pavlov-OqtafYT5kTw-unsplash-1.png",
+      "type": "image"
+    },
+    {
+      "index": 4,
+      "url": "https://player.vimeo.com/progressive_redirect/playback/892187996/rendition/1080p/file.mp4?loc=external&signature=299f9db82659b525f3319d203ab43339ba6741d8546419f7e39cdad79fedd283",
+      "filename": "vimeo-892187996.mp4",
+      "type": "video"
+    },
+    {
+      "index": 5,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/icone.png",
+      "filename": "icone.png",
+      "type": "image"
+    }
+  ]
+}
