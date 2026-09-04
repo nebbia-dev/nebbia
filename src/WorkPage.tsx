@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link, useParams } from '@tanstack/react-router';
 import { works } from './data';
 import { usePageMeta } from './usePageMeta';
@@ -6,7 +7,12 @@ export function WorkPage() {
   const { workSlug } = useParams({ from: '/works/$workSlug' });
   const index = works.findIndex((item) => item.slug === workSlug);
   const work = works[index >= 0 ? index : 0];
+  const previous = works[(index > 0 ? index : works.length) - 1];
   const next = works[(index >= 0 ? index + 1 : 1) % works.length];
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [workSlug]);
 
   usePageMeta(`${work.title} — Nebbia`, work.statement, work.image);
 
@@ -17,23 +23,47 @@ export function WorkPage() {
         <Link className="text-xs uppercase" to="/">← Tutti i lavori</Link>
       </header>
 
-      <section className="relative mt-[50px] h-[72vh] min-h-[520px] overflow-hidden">
-        <img className="h-full w-full object-cover brightness-[.78]" src={work.image} alt="" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/65" />
-        <div className="absolute inset-x-0 bottom-0 grid grid-cols-[1fr_auto] items-end gap-6 p-[30px] max-sm:grid-cols-1 max-sm:p-[18px]">
-          <div><p className="mb-3 text-xs uppercase tracking-[.08em] opacity-65">Case study / {work.year}</p><h1 className="m-0 max-w-5xl text-[clamp(42px,7.2vw,112px)] font-extralight leading-[.86] tracking-[-.075em]">{work.title}</h1></div>
-          <p className="mb-0 max-w-sm text-right text-xs max-sm:text-left">{work.services}</p>
+      <section className="relative mt-[50px] h-[72vh] min-h-[520px] max-h-[820px] overflow-hidden bg-[#d9ff36]">
+        <img className="h-full min-h-[520px] w-full object-cover" src={work.hero ?? work.image} alt={work.title} />
+        <h1 className="sr-only">{work.title}</h1>
+      </section>
+
+      <section className="grid grid-cols-12 border-b border-white/30 max-md:grid-cols-1">
+        <article className="col-span-7 border-r border-white/30 p-[56px_30px_80px] max-md:border-b max-md:border-r-0 max-sm:p-[40px_18px_56px]">
+          <p className="mb-10 mt-0 text-[11px] uppercase tracking-[.08em] opacity-55">Challenge</p>
+          <p className="m-0 max-w-4xl text-[clamp(28px,4vw,58px)] leading-[1.02] tracking-[-.055em]">{work.challenge ?? work.statement}</p>
+        </article>
+        <div className="col-span-5 grid grid-cols-2 max-sm:grid-cols-1">
+          <div className="border-r border-white/30 p-[56px_30px] max-sm:border-b max-sm:border-r-0 max-sm:p-[36px_18px]"><p className="mb-7 mt-0 text-[11px] uppercase tracking-[.08em] opacity-55">Client</p><p className="m-0 text-lg leading-tight">{work.client}<br />{work.year}</p></div>
+          <div className="p-[56px_30px] max-sm:p-[36px_18px]"><p className="mb-7 mt-0 text-[11px] uppercase tracking-[.08em] opacity-55">Services</p><p className="m-0 text-lg leading-tight">{work.services}</p></div>
         </div>
       </section>
 
-      <section className="grid min-h-[520px] grid-cols-2 border-b border-white/30 max-md:grid-cols-1">
-        <div className="border-r border-white/30 p-[55px_30px] max-md:border-b max-md:border-r-0 max-sm:px-[18px]"><p className="mb-10 mt-0 text-[11px] uppercase tracking-[.08em] opacity-55">{work.client}</p><p className="m-0 text-[clamp(28px,4vw,58px)] leading-[1.02] tracking-[-.055em]">{work.statement}</p></div>
-        <div className="grid place-items-center bg-[#f0eee8] p-8 text-[#1a1a1a]"><div className="aspect-square w-[min(68%,330px)] rounded-full border border-[#1a1a1a] p-8"><p className="m-0 text-[10px] uppercase tracking-widest">Approccio</p><p className="mt-12 text-[clamp(20px,2.4vw,34px)] leading-[1.05] tracking-[-.04em]">Strategia, linguaggio e tecnologia lavorano come un unico sistema.</p></div></div>
-      </section>
+      {(work.sections ?? [{ title: 'Il progetto', paragraphs: [work.statement] }]).map((section) => (
+        <section key={section.title} className="border-b border-white/30">
+          <div className="grid grid-cols-12 p-[86px_30px_110px] max-md:block max-sm:p-[58px_18px_72px]">
+            <h2 className="col-span-3 m-0 text-xs font-normal uppercase tracking-[.08em] opacity-60">{section.title}</h2>
+            <div className="col-span-8 col-start-5 max-md:mt-10">
+              {section.paragraphs.map((paragraph) => <p key={paragraph.slice(0, 48)} className="my-0 mb-8 text-[clamp(25px,3.3vw,50px)] leading-[1.06] tracking-[-.045em] last:mb-0">{paragraph}</p>)}
+            </div>
+          </div>
+          {section.media && <div className={`grid ${section.media.length > 1 ? 'md:grid-cols-2' : ''}`}>
+            {section.media.map((src, mediaIndex) => <img key={src} className={`aspect-[16/10] h-full w-full object-cover ${section.media?.length === 3 && mediaIndex === 0 ? 'md:col-span-2 md:aspect-[16/8]' : ''}`} src={src} alt="" loading="lazy" />)}
+          </div>}
+        </section>
+      ))}
 
-      <Link className="group grid min-h-[280px] grid-cols-[1fr_auto] items-end bg-[#d9ff36] p-[30px] text-[#1a1a1a] max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: next.slug }}>
-        <div><span className="text-xs uppercase">Prossimo progetto</span><h2 className="mb-0 mt-12 text-[clamp(36px,6vw,88px)] font-extralight leading-[.9] tracking-[-.065em]">{next.title}</h2></div><b className="text-5xl font-extralight transition group-hover:rotate-45" aria-hidden="true">↗</b>
-      </Link>
+      {work.credits && <section className="border-b border-white/30 p-[76px_30px_96px] max-sm:p-[54px_18px_70px]">
+        <h2 className="mb-14 mt-0 text-xs font-normal uppercase tracking-[.08em] opacity-60">Team</h2>
+        <div className="grid grid-cols-4 border-l border-t border-white/30 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1">
+          {work.credits.map((credit) => <div key={credit.role} className="min-h-36 border-b border-r border-white/30 p-5"><p className="m-0 text-[10px] uppercase tracking-[.08em] opacity-50">{credit.role}</p><p className="mb-0 mt-9 text-base leading-snug">{credit.names.join(', ')}</p></div>)}
+        </div>
+      </section>}
+
+      <nav className="grid grid-cols-2 max-md:grid-cols-1">
+        <Link className="group min-h-[280px] border-r border-white/30 p-[30px] max-md:border-b max-md:border-r-0 max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: previous.slug }}><span className="text-xs uppercase opacity-55">Previous project</span><h2 className="mb-0 mt-20 text-[clamp(32px,4.7vw,68px)] font-extralight leading-[.9] tracking-[-.06em] transition group-hover:translate-x-2">← {previous.title}</h2></Link>
+        <Link className="group min-h-[280px] bg-[#d9ff36] p-[30px] text-[#1a1a1a] max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: next.slug }}><span className="text-xs uppercase">Next project</span><h2 className="mb-0 mt-20 text-[clamp(32px,4.7vw,68px)] font-extralight leading-[.9] tracking-[-.06em] transition group-hover:translate-x-2">{next.title} →</h2></Link>
+      </nav>
 
       <footer className="fixed inset-x-0 bottom-0 z-20 flex h-[50px] items-center justify-between border-t border-white/30 bg-[#1a1a1a] px-[30px] text-xs max-sm:px-[18px]"><span>Cremona (IT)</span><Link to="/">Nebbia Phygital Lab</Link></footer>
     </main>
