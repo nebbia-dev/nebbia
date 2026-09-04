@@ -1,0 +1,47 @@
+{
+  "source": "https://nebbialab.it/works/festival-monteverdi/",
+  "media": [
+    {
+      "index": 0,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/poster_urban-concept.webp",
+      "filename": "poster_urban-concept.webp",
+      "type": "image"
+    },
+    {
+      "index": 1,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/ponchielli-concept.webp",
+      "filename": "ponchielli-concept.webp",
+      "type": "image"
+    },
+    {
+      "index": 2,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/poster.png",
+      "filename": "poster.png",
+      "type": "image"
+    },
+    {
+      "index": 3,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/Ponchielli_Post_Mockup-1920x1141.png",
+      "filename": "Ponchielli_Post_Mockup-1920x1141.png",
+      "type": "image"
+    },
+    {
+      "index": 4,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/monteverdi_reel.mp4",
+      "filename": "monteverdi_reel.mp4",
+      "type": "video"
+    },
+    {
+      "index": 5,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/mapping_1.webp",
+      "filename": "mapping_1.webp",
+      "type": "image"
+    },
+    {
+      "index": 6,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/mapping2.webp",
+      "filename": "mapping2.webp",
+      "type": "image"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "source": "https://nebbialab.it/works/mina-2/",
+  "media": [
+    {
+      "index": 0,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/Copertina.mp4",
+      "filename": "Copertina.mp4",
+      "type": "video"
+    },
+    {
+      "index": 1,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/video_progetto_Mina_reference.mp4",
+      "filename": "video_progetto_Mina_reference.mp4",
+      "type": "video"
+    },
+    {
+      "index": 2,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/mina_turn_wireframe.mp4",
+      "filename": "mina_turn_wireframe.mp4",
+      "type": "video"
+    },
+    {
+      "index": 3,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/polaroid_mina.webp",
+      "filename": "polaroid_mina.webp",
+      "type": "image"
+    },
+    {
+      "index": 4,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/mockup_mina_ig.mp4",
+      "filename": "mockup_mina_ig.mp4",
+      "type": "video"
+    }
+  ]
+}

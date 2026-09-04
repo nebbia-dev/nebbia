@@ -1,0 +1,41 @@
+{
+  "source": "https://nebbialab.it/works/martino-rossi-vr-experience/",
+  "media": [
+    {
+      "index": 0,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/martino-rossi_2.webp",
+      "filename": "martino-rossi_2.webp",
+      "type": "image"
+    },
+    {
+      "index": 1,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/Wireframe_MR_02.mp4",
+      "filename": "Wireframe_MR_02.mp4",
+      "type": "video"
+    },
+    {
+      "index": 2,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/martino-rossi_1.webp",
+      "filename": "martino-rossi_1.webp",
+      "type": "image"
+    },
+    {
+      "index": 3,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/Video_VR.mp4",
+      "filename": "Video_VR.mp4",
+      "type": "video"
+    },
+    {
+      "index": 4,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/icone.mp4",
+      "filename": "icone.mp4",
+      "type": "video"
+    },
+    {
+      "index": 5,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/Tavolino_02.mp4",
+      "filename": "Tavolino_02.mp4",
+      "type": "video"
+    }
+  ]
+}

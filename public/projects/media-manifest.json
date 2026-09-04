@@ -1,0 +1,947 @@
+{
+  "syncedAt": "2026-09-04T14:43:44.962Z",
+  "projects": [
+    {
+      "slug": "cremonese-120",
+      "pageUrl": "https://nebbialab.it/works/120-u-s-cremonese/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2023/10/Cremonese-120-1-1.png",
+          "filename": "Cremonese-120-1-1.png",
+          "type": "image"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/Wireframe_BG-Logo_X_Animazione_Wireframe.mp4",
+          "filename": "Wireframe_BG-Logo_X_Animazione_Wireframe.mp4",
+          "type": "video"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2023/11/Rectangle-41-1.png",
+          "filename": "Rectangle-41-1.png",
+          "type": "image"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2023/11/jan-piatkowski-m61qUssdYSs-unsplash-1.png",
+          "filename": "jan-piatkowski-m61qUssdYSs-unsplash-1.png",
+          "type": "image"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2023/11/wesley-tingey-eMNevd6ErCU-unsplash-1.png",
+          "filename": "wesley-tingey-eMNevd6ErCU-unsplash-1.png",
+          "type": "image"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2023/11/bernard-hermant-Zpdb7-owcpw-unsplash-1.png",
+          "filename": "bernard-hermant-Zpdb7-owcpw-unsplash-1.png",
+          "type": "image"
+        },
+        {
+          "index": 6,
+          "url": "https://nebbialab.it/web/app/uploads/2023/11/rue-s-XivbqAPEoJg-unsplash-1.png",
+          "filename": "rue-s-XivbqAPEoJg-unsplash-1.png",
+          "type": "image"
+        },
+        {
+          "index": 7,
+          "url": "https://nebbialab.it/web/app/uploads/2023/11/meritt-thomas-H6xL83VRTT8-unsplash-1.png",
+          "filename": "meritt-thomas-H6xL83VRTT8-unsplash-1.png",
+          "type": "image"
+        },
+        {
+          "index": 8,
+          "url": "https://nebbialab.it/web/app/uploads/2023/11/andy-hall-0Y8fIntplo0-unsplash-1.png",
+          "filename": "andy-hall-0Y8fIntplo0-unsplash-1.png",
+          "type": "image"
+        },
+        {
+          "index": 9,
+          "url": "https://nebbialab.it/web/app/uploads/2023/11/Anim_Teche.gif",
+          "filename": "Anim_Teche.gif",
+          "type": "image"
+        },
+        {
+          "index": 10,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/teca_cremonese.webp",
+          "filename": "teca_cremonese.webp",
+          "type": "image"
+        },
+        {
+          "index": 11,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/mostra_cremonese_.webp",
+          "filename": "mostra_cremonese_.webp",
+          "type": "image"
+        },
+        {
+          "index": 12,
+          "url": "https://player.vimeo.com/progressive_redirect/playback/892187457/rendition/1080p/file.mp4?loc=external&signature=7b37d486a03fc8a723f4ca7f760ec468529f10ada438b8a90ec27e1b7cd1f828",
+          "filename": "vimeo-892187457.mp4",
+          "type": "video"
+        },
+        {
+          "index": 13,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/cortometraggio_cremonese.webp",
+          "filename": "cortometraggio_cremonese.webp",
+          "type": "image"
+        },
+        {
+          "index": 14,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/teca_cremonese_120_cremonese.webp",
+          "filename": "teca_cremonese_120_cremonese.webp",
+          "type": "image"
+        },
+        {
+          "index": 15,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/teca_120_cremo.webp",
+          "filename": "teca_120_cremo.webp",
+          "type": "image"
+        },
+        {
+          "index": 16,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/mostra_120.webp",
+          "filename": "mostra_120.webp",
+          "type": "image"
+        },
+        {
+          "index": 17,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/modellino_cremonese.webp",
+          "filename": "modellino_cremonese.webp",
+          "type": "image"
+        },
+        {
+          "index": 18,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/spogliatoio_cremonese.webp",
+          "filename": "spogliatoio_cremonese.webp",
+          "type": "image"
+        },
+        {
+          "index": 19,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/mostra_marzo_cremonese.webp",
+          "filename": "mostra_marzo_cremonese.webp",
+          "type": "image"
+        },
+        {
+          "index": 20,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/maglia_cremonese_.webp",
+          "filename": "maglia_cremonese_.webp",
+          "type": "image"
+        },
+        {
+          "index": 21,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/cremonese_120_mockup_shopify_v2-1-1440x810.gif",
+          "filename": "cremonese_120_mockup_shopify_v2-1-1440x810.gif",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "slug": "martinorossi-vr",
+      "pageUrl": "https://nebbialab.it/works/martino-rossi-vr-experience/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/martino-rossi_2.webp",
+          "filename": "martino-rossi_2.webp",
+          "type": "image"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/Wireframe_MR_02.mp4",
+          "filename": "Wireframe_MR_02.mp4",
+          "type": "video"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/martino-rossi_1.webp",
+          "filename": "martino-rossi_1.webp",
+          "type": "image"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/Video_VR.mp4",
+          "filename": "Video_VR.mp4",
+          "type": "video"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/icone.mp4",
+          "filename": "icone.mp4",
+          "type": "video"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/Tavolino_02.mp4",
+          "filename": "Tavolino_02.mp4",
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "slug": "univet-casco-laser",
+      "pageUrl": "https://nebbialab.it/works/univet-casco-laser/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/casco.png",
+          "filename": "casco.png",
+          "type": "image"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/univet_.webp",
+          "filename": "univet_.webp",
+          "type": "image"
+        },
+        {
+          "index": 2,
+          "url": "https://player.vimeo.com/progressive_redirect/playback/1047866675/rendition/1080p/file.mp4?loc=external&signature=525cabc45213eba73333499e2d572e8e874a2ddb2f40994d5cf366622d00a4ca",
+          "filename": "vimeo-1047866675.mp4",
+          "type": "video"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/shot1_1x.webp",
+          "filename": "shot1_1x.webp",
+          "type": "image"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/Shot5.png",
+          "filename": "Shot5.png",
+          "type": "image"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/shot2_1x.webp",
+          "filename": "shot2_1x.webp",
+          "type": "image"
+        },
+        {
+          "index": 6,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/chip_univet.webp",
+          "filename": "chip_univet.webp",
+          "type": "image"
+        },
+        {
+          "index": 7,
+          "url": "https://player.vimeo.com/progressive_redirect/playback/1047871085/rendition/1080p/file.mp4?loc=external&signature=63534159ab7a16e36723656e9c15cb6d7d598a9c212e81c6b430c7ae42259dc7",
+          "filename": "vimeo-1047871085.mp4",
+          "type": "video"
+        },
+        {
+          "index": 8,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/univet-casco_tutorial.webp",
+          "filename": "univet-casco_tutorial.webp",
+          "type": "image"
+        },
+        {
+          "index": 9,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/univet_monitor.webp",
+          "filename": "univet_monitor.webp",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "slug": "eventi-aic",
+      "pageUrl": "https://nebbialab.it/works/eventi-aic/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/Copertina_Logo.mp4",
+          "filename": "Copertina_Logo.mp4",
+          "type": "video"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/Tappo_Generico_FCV.mp4",
+          "filename": "Tappo_Generico_FCV.mp4",
+          "type": "video"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/MM1_2409-1-1440x809.webp",
+          "filename": "MM1_2409-1-1440x809.webp",
+          "type": "image"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/MM2_4904-1.webp",
+          "filename": "MM2_4904-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/MM2_5466-1-1.webp",
+          "filename": "MM2_5466-1-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/MM2_6628-1.webp",
+          "filename": "MM2_6628-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 6,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/MM1_2648-1-1440x810.webp",
+          "filename": "MM1_2648-1-1440x810.webp",
+          "type": "image"
+        },
+        {
+          "index": 7,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/image-15-1440x809.webp",
+          "filename": "image-15-1440x809.webp",
+          "type": "image"
+        },
+        {
+          "index": 8,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/Tappo_Generico_EI.mp4",
+          "filename": "Tappo_Generico_EI.mp4",
+          "type": "video"
+        },
+        {
+          "index": 9,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/Mockup_ELS-2.mp4",
+          "filename": "Mockup_ELS-2.mp4",
+          "type": "video"
+        },
+        {
+          "index": 10,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/DSC_2941-1.webp",
+          "filename": "DSC_2941-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 11,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/DSC_2818-1.webp",
+          "filename": "DSC_2818-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 12,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/DSC_2808-1.webp",
+          "filename": "DSC_2808-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 13,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/DSC_2771-1.webp",
+          "filename": "DSC_2771-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 14,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/DSC_2522-1.webp",
+          "filename": "DSC_2522-1.webp",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "slug": "idee-mani-tempo",
+      "pageUrl": "https://nebbialab.it/works/le-idee-le-mani-il-tempo/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/Video_Copertina-1.mp4",
+          "filename": "Video_Copertina-1.mp4",
+          "type": "video"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/Video_Intro-1.mp4",
+          "filename": "Video_Intro-1.mp4",
+          "type": "video"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/Wireframe.mp4",
+          "filename": "Wireframe.mp4",
+          "type": "video"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/Carosello_Presidenti.mp4",
+          "filename": "Carosello_Presidenti.mp4",
+          "type": "video"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/Artboard-1-2-1440x812.webp",
+          "filename": "Artboard-1-2-1440x812.webp",
+          "type": "image"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/Tv.mp4",
+          "filename": "Tv.mp4",
+          "type": "video"
+        },
+        {
+          "index": 6,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/IMG_6791-1.webp",
+          "filename": "IMG_6791-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 7,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/IMG_6755-1.webp",
+          "filename": "IMG_6755-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 8,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/IMG_6764-1.webp",
+          "filename": "IMG_6764-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 9,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/IMG_6789-1.webp",
+          "filename": "IMG_6789-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 10,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/IMG_6777-1.webp",
+          "filename": "IMG_6777-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 11,
+          "url": "https://nebbialab.it/web/app/uploads/2026/04/DSC00883-1.webp",
+          "filename": "DSC00883-1.webp",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "slug": "sellago",
+      "pageUrl": "https://nebbialab.it/works/sellago/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/Copertina-1.mp4",
+          "filename": "Copertina-1.mp4",
+          "type": "video"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/prodotto_full-screen.mp4",
+          "filename": "prodotto_full-screen.mp4",
+          "type": "video"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/template_mobile_video.mp4",
+          "filename": "template_mobile_video.mp4",
+          "type": "video"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/img_sellago.jpg",
+          "filename": "img_sellago.jpg",
+          "type": "image"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/ux_full_screen.mp4",
+          "filename": "ux_full_screen.mp4",
+          "type": "video"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/prodotti-mockup.mp4",
+          "filename": "prodotti-mockup.mp4",
+          "type": "video"
+        },
+        {
+          "index": 6,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/social_sellago_concept.webp",
+          "filename": "social_sellago_concept.webp",
+          "type": "image"
+        },
+        {
+          "index": 7,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/social_sellago_concept_webp.webp",
+          "filename": "social_sellago_concept_webp.webp",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "slug": "cremonese-maglie",
+      "pageUrl": "https://nebbialab.it/works/cremonese-maglie/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/cover_video.mp4",
+          "filename": "cover_video.mp4",
+          "type": "video"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/Video_Maglie_Prato.mp4",
+          "filename": "Video_Maglie_Prato.mp4",
+          "type": "video"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/seconda-maglia-24_25_cremonese.webp",
+          "filename": "seconda-maglia-24_25_cremonese.webp",
+          "type": "image"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/maglie-24-25.png",
+          "filename": "maglie-24-25.png",
+          "type": "image"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/seconda-maglia_24_25_2_cremonese.webp",
+          "filename": "seconda-maglia_24_25_2_cremonese.webp",
+          "type": "image"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/terza-maglia_23_24_cremonese-1.webp",
+          "filename": "terza-maglia_23_24_cremonese-1.webp",
+          "type": "image"
+        },
+        {
+          "index": 6,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/terza-maglia-cremo-23_24_cremonese.webp",
+          "filename": "terza-maglia-cremo-23_24_cremonese.webp",
+          "type": "image"
+        },
+        {
+          "index": 7,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/terza-maglia_cremonese_24_25.webp",
+          "filename": "terza-maglia_cremonese_24_25.webp",
+          "type": "image"
+        },
+        {
+          "index": 8,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/seconda-maglia_cremonese_24_25.webp",
+          "filename": "seconda-maglia_cremonese_24_25.webp",
+          "type": "image"
+        },
+        {
+          "index": 9,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/Sequence-01.mp4",
+          "filename": "Sequence-01.mp4",
+          "type": "video"
+        },
+        {
+          "index": 10,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/3-maglieup.webp",
+          "filename": "3-maglieup.webp",
+          "type": "image"
+        },
+        {
+          "index": 11,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/magliette-23-24.png",
+          "filename": "magliette-23-24.png",
+          "type": "image"
+        },
+        {
+          "index": 12,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/L1060556-1920x2880.jpg",
+          "filename": "L1060556-1920x2880.jpg",
+          "type": "image"
+        },
+        {
+          "index": 13,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/L1060512-1920x2880.jpg",
+          "filename": "L1060512-1920x2880.jpg",
+          "type": "image"
+        },
+        {
+          "index": 14,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/1maglia_22-23_corretta.webp",
+          "filename": "1maglia_22-23_corretta.webp",
+          "type": "image"
+        },
+        {
+          "index": 15,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/Cremonese-Reels-Kit-23-24.mp4",
+          "filename": "Cremonese-Reels-Kit-23-24.mp4",
+          "type": "video"
+        },
+        {
+          "index": 16,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/WhatsApp-Image-2023-08-21-at-17.20.33.jpeg",
+          "filename": "WhatsApp-Image-2023-08-21-at-17.20.33.jpeg",
+          "type": "image"
+        },
+        {
+          "index": 17,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/L1050948-1920x2880.jpg",
+          "filename": "L1050948-1920x2880.jpg",
+          "type": "image"
+        },
+        {
+          "index": 18,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/L1060570-scaled.jpg",
+          "filename": "L1060570-scaled.jpg",
+          "type": "image"
+        },
+        {
+          "index": 19,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/Logo.mp4",
+          "filename": "Logo.mp4",
+          "type": "video"
+        },
+        {
+          "index": 20,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/prima-maglia_24_25.webp",
+          "filename": "prima-maglia_24_25.webp",
+          "type": "image"
+        },
+        {
+          "index": 21,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/maglia-lilla_cremo.webp",
+          "filename": "maglia-lilla_cremo.webp",
+          "type": "image"
+        },
+        {
+          "index": 22,
+          "url": "https://nebbialab.it/web/app/uploads/2025/01/sola-mai_cremonese.webp",
+          "filename": "sola-mai_cremonese.webp",
+          "type": "image"
+        },
+        {
+          "index": 23,
+          "url": "https://nebbialab.it/web/app/uploads/2025/02/storyboard_sola_mai.mp4",
+          "filename": "storyboard_sola_mai.mp4",
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "slug": "spinagallo",
+      "pageUrl": "https://nebbialab.it/works/spinagallo-website/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/spinagallo-scaled.webp",
+          "filename": "spinagallo-scaled.webp",
+          "type": "image"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/spinagallo_mockup_iphone.mp4",
+          "filename": "spinagallo_mockup_iphone.mp4",
+          "type": "video"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/arte-siciliana_.webp",
+          "filename": "arte-siciliana_.webp",
+          "type": "image"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/elena-baidak-hr3a-VnCIYY-unsplash-1920x2560.jpg",
+          "filename": "elena-baidak-hr3a-VnCIYY-unsplash-1920x2560.jpg",
+          "type": "image"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/spinagallo_mockup_desktop.mp4",
+          "filename": "spinagallo_mockup_desktop.mp4",
+          "type": "video"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/Wireframe_Spinagallo.mp4",
+          "filename": "Wireframe_Spinagallo.mp4",
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "slug": "jmg-ar",
+      "pageUrl": "https://nebbialab.it/works/jmg-a-r-configurator/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/cover_jmg.webp",
+          "filename": "cover_jmg.webp",
+          "type": "image"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/video_app_jmg.mp4",
+          "filename": "video_app_jmg.mp4",
+          "type": "video"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/Gif_Wireframe_JMG_01.gif",
+          "filename": "Gif_Wireframe_JMG_01.gif",
+          "type": "image"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/ilya-pavlov-OqtafYT5kTw-unsplash-1.png",
+          "filename": "ilya-pavlov-OqtafYT5kTw-unsplash-1.png",
+          "type": "image"
+        },
+        {
+          "index": 4,
+          "url": "https://player.vimeo.com/progressive_redirect/playback/892187996/rendition/1080p/file.mp4?loc=external&signature=299f9db82659b525f3319d203ab43339ba6741d8546419f7e39cdad79fedd283",
+          "filename": "vimeo-892187996.mp4",
+          "type": "video"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/icone.png",
+          "filename": "icone.png",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "slug": "pro-cremona",
+      "pageUrl": "https://nebbialab.it/works/pro-cremona/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/copertina_procremona.mp4",
+          "filename": "copertina_procremona.mp4",
+          "type": "video"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/Group-1019.png",
+          "filename": "Group-1019.png",
+          "type": "image"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/procremona_web_desktop.mp4",
+          "filename": "procremona_web_desktop.mp4",
+          "type": "video"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/mockup_procremona_merch.mp4",
+          "filename": "mockup_procremona_merch.mp4",
+          "type": "video"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2024/12/pro-cremona_adv.webp",
+          "filename": "pro-cremona_adv.webp",
+          "type": "image"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2024/12/pro-cremona.webp",
+          "filename": "pro-cremona.webp",
+          "type": "image"
+        },
+        {
+          "index": 6,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/render_el-giooch.mp4",
+          "filename": "render_el-giooch.mp4",
+          "type": "video"
+        },
+        {
+          "index": 7,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/social_procremona_mockup.mp4",
+          "filename": "social_procremona_mockup.mp4",
+          "type": "video"
+        },
+        {
+          "index": 8,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/DSCF4722.jpg",
+          "filename": "DSCF4722.jpg",
+          "type": "image"
+        },
+        {
+          "index": 9,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/torrazzo-gallery-01.jpg",
+          "filename": "torrazzo-gallery-01.jpg",
+          "type": "image"
+        },
+        {
+          "index": 10,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/torrazzo-gallery-18.jpg",
+          "filename": "torrazzo-gallery-18.jpg",
+          "type": "image"
+        },
+        {
+          "index": 11,
+          "url": "https://nebbialab.it/web/app/uploads/2024/12/1.webp",
+          "filename": "1.webp",
+          "type": "image"
+        },
+        {
+          "index": 12,
+          "url": "https://nebbialab.it/web/app/uploads/2024/12/2.webp",
+          "filename": "2.webp",
+          "type": "image"
+        },
+        {
+          "index": 13,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/Group-1020.png",
+          "filename": "Group-1020.png",
+          "type": "image"
+        },
+        {
+          "index": 14,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/Group-1021.png",
+          "filename": "Group-1021.png",
+          "type": "image"
+        },
+        {
+          "index": 15,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/guido-damini_pro-cremona-1-1440x960.webp",
+          "filename": "guido-damini_pro-cremona-1-1440x960.webp",
+          "type": "image"
+        },
+        {
+          "index": 16,
+          "url": "https://nebbialab.it/web/app/uploads/2024/12/lena-yokoyama.webp",
+          "filename": "lena-yokoyama.webp",
+          "type": "image"
+        },
+        {
+          "index": 17,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/lena-pro-cremona-1440x960.webp",
+          "filename": "lena-pro-cremona-1440x960.webp",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "slug": "festival-monteverdi",
+      "pageUrl": "https://nebbialab.it/works/festival-monteverdi/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/poster_urban-concept.webp",
+          "filename": "poster_urban-concept.webp",
+          "type": "image"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/ponchielli-concept.webp",
+          "filename": "ponchielli-concept.webp",
+          "type": "image"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/poster.png",
+          "filename": "poster.png",
+          "type": "image"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/Ponchielli_Post_Mockup-1920x1141.png",
+          "filename": "Ponchielli_Post_Mockup-1920x1141.png",
+          "type": "image"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/monteverdi_reel.mp4",
+          "filename": "monteverdi_reel.mp4",
+          "type": "video"
+        },
+        {
+          "index": 5,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/mapping_1.webp",
+          "filename": "mapping_1.webp",
+          "type": "image"
+        },
+        {
+          "index": 6,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/mapping2.webp",
+          "filename": "mapping2.webp",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "slug": "mina-virtual-traveler",
+      "pageUrl": "https://nebbialab.it/works/mina-2/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/Copertina.mp4",
+          "filename": "Copertina.mp4",
+          "type": "video"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/video_progetto_Mina_reference.mp4",
+          "filename": "video_progetto_Mina_reference.mp4",
+          "type": "video"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/mina_turn_wireframe.mp4",
+          "filename": "mina_turn_wireframe.mp4",
+          "type": "video"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/polaroid_mina.webp",
+          "filename": "polaroid_mina.webp",
+          "type": "image"
+        },
+        {
+          "index": 4,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/mockup_mina_ig.mp4",
+          "filename": "mockup_mina_ig.mp4",
+          "type": "video"
+        }
+      ]
+    },
+    {
+      "slug": "c2-corporate",
+      "pageUrl": "https://nebbialab.it/works/c2-corporate/",
+      "media": [
+        {
+          "index": 0,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/coverc2.webp",
+          "filename": "coverc2.webp",
+          "type": "image"
+        },
+        {
+          "index": 1,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/Logo_C2_Wireframe_Anim.gif",
+          "filename": "Logo_C2_Wireframe_Anim.gif",
+          "type": "image"
+        },
+        {
+          "index": 2,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/c2_corporate-video.mp4",
+          "filename": "c2_corporate-video.mp4",
+          "type": "video"
+        },
+        {
+          "index": 3,
+          "url": "https://nebbialab.it/web/app/uploads/2023/12/storyboard-c2.mp4",
+          "filename": "storyboard-c2.mp4",
+          "type": "video"
+        },
+        {
+          "index": 4,
+          "url": "https://player.vimeo.com/progressive_redirect/playback/892187913/rendition/1080p/file.mp4?loc=external&signature=e7dc313255d9f56395b9ccf0e231d20db22f284f9ad511868d3ff478912d2137",
+          "filename": "vimeo-892187913.mp4",
+          "type": "video"
+        }
+      ]
+    }
+  ]
+}
