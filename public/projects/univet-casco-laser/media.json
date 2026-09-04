@@ -1,0 +1,65 @@
+{
+  "source": "https://nebbialab.it/works/univet-casco-laser/",
+  "media": [
+    {
+      "index": 0,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/casco.png",
+      "filename": "casco.png",
+      "type": "image"
+    },
+    {
+      "index": 1,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/univet_.webp",
+      "filename": "univet_.webp",
+      "type": "image"
+    },
+    {
+      "index": 2,
+      "url": "https://player.vimeo.com/progressive_redirect/playback/1047866675/rendition/1080p/file.mp4?loc=external&signature=525cabc45213eba73333499e2d572e8e874a2ddb2f40994d5cf366622d00a4ca",
+      "filename": "vimeo-1047866675.mp4",
+      "type": "video"
+    },
+    {
+      "index": 3,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/shot1_1x.webp",
+      "filename": "shot1_1x.webp",
+      "type": "image"
+    },
+    {
+      "index": 4,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/Shot5.png",
+      "filename": "Shot5.png",
+      "type": "image"
+    },
+    {
+      "index": 5,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/shot2_1x.webp",
+      "filename": "shot2_1x.webp",
+      "type": "image"
+    },
+    {
+      "index": 6,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/chip_univet.webp",
+      "filename": "chip_univet.webp",
+      "type": "image"
+    },
+    {
+      "index": 7,
+      "url": "https://player.vimeo.com/progressive_redirect/playback/1047871085/rendition/1080p/file.mp4?loc=external&signature=63534159ab7a16e36723656e9c15cb6d7d598a9c212e81c6b430c7ae42259dc7",
+      "filename": "vimeo-1047871085.mp4",
+      "type": "video"
+    },
+    {
+      "index": 8,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/univet-casco_tutorial.webp",
+      "filename": "univet-casco_tutorial.webp",
+      "type": "image"
+    },
+    {
+      "index": 9,
+      "url": "https://nebbialab.it/web/app/uploads/2025/01/univet_monitor.webp",
+      "filename": "univet_monitor.webp",
+      "type": "image"
+    }
+  ]
+}

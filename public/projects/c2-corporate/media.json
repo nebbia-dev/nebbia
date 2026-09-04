@@ -1,0 +1,35 @@
+{
+  "source": "https://nebbialab.it/works/c2-corporate/",
+  "media": [
+    {
+      "index": 0,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/coverc2.webp",
+      "filename": "coverc2.webp",
+      "type": "image"
+    },
+    {
+      "index": 1,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/Logo_C2_Wireframe_Anim.gif",
+      "filename": "Logo_C2_Wireframe_Anim.gif",
+      "type": "image"
+    },
+    {
+      "index": 2,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/c2_corporate-video.mp4",
+      "filename": "c2_corporate-video.mp4",
+      "type": "video"
+    },
+    {
+      "index": 3,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/storyboard-c2.mp4",
+      "filename": "storyboard-c2.mp4",
+      "type": "video"
+    },
+    {
+      "index": 4,
+      "url": "https://player.vimeo.com/progressive_redirect/playback/892187913/rendition/1080p/file.mp4?loc=external&signature=e7dc313255d9f56395b9ccf0e231d20db22f284f9ad511868d3ff478912d2137",
+      "filename": "vimeo-892187913.mp4",
+      "type": "video"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { Outlet, createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
 import { HomePage } from './HomePage';
-import { WorkPage } from './WorkPage';
+import { WorkPage } from './_components/WorkPage';
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,

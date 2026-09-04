@@ -1,0 +1,41 @@
+{
+  "source": "https://nebbialab.it/works/spinagallo-website/",
+  "media": [
+    {
+      "index": 0,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/spinagallo-scaled.webp",
+      "filename": "spinagallo-scaled.webp",
+      "type": "image"
+    },
+    {
+      "index": 1,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/spinagallo_mockup_iphone.mp4",
+      "filename": "spinagallo_mockup_iphone.mp4",
+      "type": "video"
+    },
+    {
+      "index": 2,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/arte-siciliana_.webp",
+      "filename": "arte-siciliana_.webp",
+      "type": "image"
+    },
+    {
+      "index": 3,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/elena-baidak-hr3a-VnCIYY-unsplash-1920x2560.jpg",
+      "filename": "elena-baidak-hr3a-VnCIYY-unsplash-1920x2560.jpg",
+      "type": "image"
+    },
+    {
+      "index": 4,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/spinagallo_mockup_desktop.mp4",
+      "filename": "spinagallo_mockup_desktop.mp4",
+      "type": "video"
+    },
+    {
+      "index": 5,
+      "url": "https://nebbialab.it/web/app/uploads/2023/12/Wireframe_Spinagallo.mp4",
+      "filename": "Wireframe_Spinagallo.mp4",
+      "type": "video"
+    }
+  ]
+}
