@@ -1,0 +1,77 @@
+{
+  "source": "https://nebbialab.it/works/le-idee-le-mani-il-tempo/",
+  "media": [
+    {
+      "index": 0,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/Video_Copertina-1.mp4",
+      "filename": "Video_Copertina-1.mp4",
+      "type": "video"
+    },
+    {
+      "index": 1,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/Video_Intro-1.mp4",
+      "filename": "Video_Intro-1.mp4",
+      "type": "video"
+    },
+    {
+      "index": 2,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/Wireframe.mp4",
+      "filename": "Wireframe.mp4",
+      "type": "video"
+    },
+    {
+      "index": 3,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/Carosello_Presidenti.mp4",
+      "filename": "Carosello_Presidenti.mp4",
+      "type": "video"
+    },
+    {
+      "index": 4,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/Artboard-1-2-1440x812.webp",
+      "filename": "Artboard-1-2-1440x812.webp",
+      "type": "image"
+    },
+    {
+      "index": 5,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/Tv.mp4",
+      "filename": "Tv.mp4",
+      "type": "video"
+    },
+    {
+      "index": 6,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/IMG_6791-1.webp",
+      "filename": "IMG_6791-1.webp",
+      "type": "image"
+    },
+    {
+      "index": 7,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/IMG_6755-1.webp",
+      "filename": "IMG_6755-1.webp",
+      "type": "image"
+    },
+    {
+      "index": 8,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/IMG_6764-1.webp",
+      "filename": "IMG_6764-1.webp",
+      "type": "image"
+    },
+    {
+      "index": 9,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/IMG_6789-1.webp",
+      "filename": "IMG_6789-1.webp",
+      "type": "image"
+    },
+    {
+      "index": 10,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/IMG_6777-1.webp",
+      "filename": "IMG_6777-1.webp",
+      "type": "image"
+    },
+    {
+      "index": 11,
+      "url": "https://nebbialab.it/web/app/uploads/2026/04/DSC00883-1.webp",
+      "filename": "DSC00883-1.webp",
+      "type": "image"
+    }
+  ]
+}
