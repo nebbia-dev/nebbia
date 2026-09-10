@@ -37,7 +37,7 @@ function LoginPage() {
         <a className="w-fit text-xl font-semibold" href="/" aria-label="Torna al sito Nebbia">nebbia.</a>
         <div className="max-w-xl py-14 lg:py-0">
           <p className="mb-4 text-[10px] font-medium uppercase tracking-[0.08em] text-white/40">Area riservata</p>
-          <h1 className="text-[clamp(3rem,7vw,7rem)] font-light leading-[0.9] tracking-[-0.055em]">Project<br />editor.</h1>
+          <h1 className="text-[clamp(3rem,7vw,7rem)] font-extralight leading-[0.9] tracking-[-0.055em]">Project<br />editor.</h1>
         </div>
         <p className="hidden max-w-sm text-xs leading-relaxed text-white/35 lg:block">Gestisci i contenuti e i media dei progetti Nebbia.</p>
       </section>
@@ -45,7 +45,7 @@ function LoginPage() {
       <section className="flex items-center justify-center px-5 py-14 sm:px-8 lg:px-16">
         <form className="w-full max-w-md" onSubmit={handleSubmit}>
           <p className="text-[10px] font-medium uppercase tracking-[0.08em] text-white/40">Login</p>
-          <h2 className="mt-3 text-3xl font-light tracking-[-0.03em]">Accedi all’editor</h2>
+          <h2 className="mt-3 text-3xl font-extralight tracking-[-0.03em]">Accedi all’editor</h2>
           <p className="mt-3 text-sm leading-relaxed text-white/45">Inserisci le credenziali del tuo account Supabase.</p>
 
           <div className="mt-10">

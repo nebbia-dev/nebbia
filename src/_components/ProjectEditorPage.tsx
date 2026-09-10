@@ -489,7 +489,7 @@ function ProjectPreview({ project, mobile }: { project: EditorProject; mobile: b
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/15" />
         <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
           <p className="mb-2 text-[9px] uppercase text-white/60">{project.year || 'Anno'} · {project.client || 'Cliente'}</p>
-          <h2 className={`${mobile ? 'text-4xl' : 'text-5xl xl:text-6xl'} max-w-3xl font-light leading-[0.92]`}>{project.title || 'Progetto senza titolo'}</h2>
+          <h2 className={`${mobile ? 'text-4xl' : 'text-5xl xl:text-6xl'} max-w-3xl font-extralight leading-[0.92]`}>{project.title || 'Progetto senza titolo'}</h2>
         </div>
       </div>
 
@@ -775,7 +775,7 @@ export function ProjectEditorPage({
             <div>
               <p className={eyebrow}>Contenuti del progetto</p>
               <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
-                <h1 className="text-3xl font-light">{activeProject.title}</h1>
+                <h1 className="text-3xl font-extralight">{activeProject.title}</h1>
                 <span className="text-[10px] uppercase text-white/35">{activeProject.blocks.length} blocchi</span>
               </div>
               {notice && <p className="mt-4 border-l-2 border-[#ff3700] pl-3 text-xs leading-relaxed text-white/55">{notice}</p>}
@@ -855,7 +855,7 @@ export function ProjectEditorPage({
               <div className="mb-5 flex items-end justify-between gap-3">
                 <div>
                   <p className={eyebrow}>04</p>
-                  <h2 className="mt-2 text-xl font-light">Composizione pagina</h2>
+                  <h2 className="mt-2 text-xl font-extralight">Composizione pagina</h2>
                 </div>
                 <span className="text-[10px] uppercase text-white/35">Ordine dall’alto</span>
               </div>

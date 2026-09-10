@@ -1,5 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
-import type { ProjectSection, Work } from './projectTypes';
+import type { Credit, ProjectSection, Work } from './projectTypes';
 import { getSupabaseConfig } from './supabaseConfig';
 
 type ProjectRow = {
@@ -12,6 +12,7 @@ type ProjectRow = {
   client: string;
   challenge: string;
   sections: ProjectSection[] | null;
+  credits: Credit[] | null;
 };
 
 export type ProjectWriteInput = {
@@ -83,6 +84,7 @@ function projectFromRow(row: ProjectRow): Work {
     statement: row.challenge,
     sections: row.sections ?? [],
     media: [],
+    credits: row.credits?.length ? row.credits : undefined,
   };
 }
 
@@ -91,7 +93,7 @@ async function fetchProjects(signal?: AbortSignal): Promise<Work[]> {
   const endpoint = new URL(`/rest/v1/${encodeURIComponent('Projects')}`, url);
   endpoint.searchParams.set(
     'select',
-    'slug,title,image,hero,services,year,client,challenge,sections',
+    'slug,title,image,hero,services,year,client,challenge,sections,credits',
   );
 
   const response = await fetch(endpoint, {

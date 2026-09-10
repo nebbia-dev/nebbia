@@ -7,7 +7,7 @@ const rootRoute = createRootRoute({
   component: () => <Outlet />,
   notFoundComponent: () => (
     <main className="grid min-h-screen place-items-center bg-[#1a1a1a] p-8 text-center text-white">
-      <div><p className="text-xs uppercase opacity-60">404 / Persi nella nebbia</p><a className="mt-5 block text-5xl font-light" href="/">Torna alla luce →</a></div>
+      <div><p className="text-xs uppercase opacity-60">404 / Persi nella nebbia</p><a className="mt-5 block text-5xl font-extralight" href="/">Torna alla luce →</a></div>
     </main>
   ),
 });

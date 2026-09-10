@@ -35,16 +35,16 @@ export function CareersPage() {
 
   return (
     <main className="min-h-screen bg-[#1a1a1a] pb-[50px] text-white selection:bg-[#d9ff36] selection:text-[#1a1a1a] max-sm:pb-[42px]">
-      <header className="fixed inset-x-0 top-0 z-50 flex h-[50px] items-center justify-between border-b border-white/20 bg-[#1a1a1a] px-[30px] max-sm:px-[18px]">
+      <header className="fixed inset-x-0 top-0 z-50 flex h-[60px] items-center justify-between border-b border-white/20 bg-[#1a1a1a] px-[30px] max-sm:px-[18px]">
         <Link className="inline-flex items-center" to="/" aria-label="Nebbia, torna alla home">
           <img className="w-[222px] max-sm:w-[174px]" src="/assets/nebbia-logo.svg" alt="Nebbia Phygital Lab" />
         </Link>
-        <Link className="text-xs uppercase" to="/">← Torna alla home</Link>
+        <Link className="text-sm uppercase" to="/">← Torna alla home</Link>
       </header>
 
       <section className="mt-[50px]">
         <header className="flex h-[51px] items-center justify-between border-b border-white/30 px-[30px] uppercase max-sm:px-[18px]">
-          <h1 className="m-0 text-[clamp(20px,2vw,26px)] font-light text-[#ff3700]">Lavora con noi</h1>
+          <h1 className="m-0 text-[clamp(20px,2vw,26px)] font-extralight text-[#ff3700]">Lavora con noi</h1>
         </header>
 
         <div className="grid min-h-[calc(100vh-151px)] grid-cols-2 border-b border-white/30 max-lg:grid-cols-1">
@@ -53,7 +53,7 @@ export function CareersPage() {
             <div className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[min(48%,350px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9ff36]/60" aria-hidden="true" />
             <div className="relative z-10 flex w-full flex-col">
               <p className="m-0 text-[11px] uppercase opacity-55">Posizioni aperte</p>
-              <p className="my-auto max-w-[560px] text-[clamp(34px,5vw,72px)] font-light uppercase leading-[.92]">Compila il form ed allega il tuo CV!</p>
+              <p className="my-auto max-w-[560px] text-[clamp(34px,5vw,72px)] font-extralight uppercase leading-[.92]">Compila il form ed allega il tuo CV!</p>
               <p className="m-0 max-w-md text-sm leading-relaxed opacity-65">Cerchiamo persone curiose, capaci di muoversi tra creatività, tecnologia e comunicazione.</p>
             </div>
           </aside>
@@ -62,7 +62,7 @@ export function CareersPage() {
             <div className="mb-12 flex items-start justify-between gap-8">
               <div>
                 <p className="mb-3 mt-0 text-[11px] uppercase opacity-55">Candidatura spontanea</p>
-                <h2 className="m-0 max-w-xl text-[clamp(27px,3vw,44px)] font-light leading-[1.02]">Raccontaci cosa sai fare e dove vuoi arrivare.</h2>
+                <h2 className="m-0 max-w-xl text-[clamp(27px,3vw,44px)] font-extralight leading-[1.02]">Raccontaci cosa sai fare e dove vuoi arrivare.</h2>
               </div>
               <span className="shrink-0 text-[10px] uppercase opacity-45">* Obbligatorio</span>
             </div>
@@ -93,7 +93,7 @@ export function CareersPage() {
                   <span className="block text-sm">{fileName || 'Allega il tuo CV *'}</span>
                   <span className="mt-1 block text-[10px] uppercase opacity-45">PDF, DOC o DOCX · massimo 10 MB</span>
                 </span>
-                <span className="shrink-0 text-2xl font-light" aria-hidden="true">＋</span>
+                <span className="shrink-0 text-2xl font-extralight" aria-hidden="true">＋</span>
                 <input className="sr-only" name="cv" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={handleFile} required />
               </label>
               {fileError && <p className="mb-0 mt-2 text-sm text-[#ff5b38]" role="alert">{fileError}</p>}

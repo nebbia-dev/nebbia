@@ -137,7 +137,7 @@ async function runPool(items, concurrency, task) {
 
 await loadEnv(await readFile(envPath, 'utf8'));
 
-const supabaseUrl = process.env.SUPABASE_URL?.replace(/\/$/, '');
+const supabaseUrl = (process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL)?.replace(/\/$/, '');
 const secretKey = process.env.SUPABASE_SECRET_KEY;
 const bucketId = process.env.SUPABASE_BUCKET_ID;
 const tableName = process.env.SUPABASE_PROJECTS_TABLE;
@@ -191,6 +191,7 @@ const rows = works.map((work) => {
     client: work.client,
     challenge: work.challenge,
     sections: replaceMediaUrls(work.sections, toPublicUrl),
+    credits: work.credits ?? null,
   };
 });
 
