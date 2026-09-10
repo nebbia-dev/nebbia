@@ -1,4 +1,4 @@
-import type { ProjectSectionBlock } from './data';
+import type { ProjectSectionBlock } from './projectTypes';
 
 export const projectSectionLayouts: Record<string, ProjectSectionBlock[][]> = {
   "cremonese-120": [
@@ -1373,4 +1373,3 @@ export const projectSectionLayouts: Record<string, ProjectSectionBlock[][]> = {
     ],
   ],
 };
-

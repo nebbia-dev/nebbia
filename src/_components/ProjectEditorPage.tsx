@@ -1,15 +1,20 @@
-import { type ChangeEvent, type ReactNode, useMemo, useState } from 'react';
-import { works, type ProjectSectionBlock, type Work } from '../data';
+import { type ChangeEvent, type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import type { ProjectMedia } from '../projectMedia';
+import type { ProjectSection, ProjectSectionBlock, Work } from '../projectTypes';
+import { projectsQueryOptions, saveProject, uploadProjectMedia, type ProjectWriteInput } from '../supabaseProjects';
 import { usePageMeta } from '../usePageMeta';
 
 type EditorMedia = {
   src: string;
   type: 'image' | 'video';
   name?: string;
+  file?: File;
 };
 
 type TwoMediaBlock = {
   id: string;
+  sectionId?: string;
   type: 'two-media';
   left?: EditorMedia;
   right?: EditorMedia;
@@ -17,12 +22,14 @@ type TwoMediaBlock = {
 
 type FullMediaBlock = {
   id: string;
+  sectionId?: string;
   type: 'full-media';
   media?: EditorMedia;
 };
 
 type MediaTextBlock = {
   id: string;
+  sectionId?: string;
   type: 'media-text';
   media?: EditorMedia;
   mediaSide: 'left' | 'right';
@@ -38,6 +45,7 @@ type EditorProject = {
   isNew: boolean;
   title: string;
   slug: string;
+  image?: EditorMedia;
   hero?: EditorMedia;
   challenge: string;
   client: string;
@@ -73,6 +81,7 @@ function mediaFromFile(file: File): EditorMedia {
     src: URL.createObjectURL(file),
     type: file.type.startsWith('video/') ? 'video' : 'image',
     name: file.name,
+    file,
   };
 }
 
@@ -135,19 +144,21 @@ function projectFromWork(work: Work): EditorProject {
   const blocks: EditorBlock[] = [];
 
   work.sections.forEach((section) => {
+    const sectionId = makeId('section');
     const sectionBlocks: EditorBlock[] = [];
     const sectionText = section.paragraphs.join('\n\n');
     let textWasPlaced = false;
 
     section.blocks.forEach((block) => {
       const converted = convertLayoutBlock(block, section.title, sectionText);
-      sectionBlocks.push(...converted.blocks);
+      sectionBlocks.push(...converted.blocks.map((editorBlock) => ({ ...editorBlock, sectionId })));
       textWasPlaced ||= converted.usesText;
     });
 
     if (!textWasPlaced && (section.title || sectionText)) {
       sectionBlocks.unshift({
         id: makeId('block'),
+        sectionId,
         type: 'media-text',
         mediaSide: 'right',
         title: section.title,
@@ -164,11 +175,12 @@ function projectFromWork(work: Work): EditorProject {
     isNew: false,
     title: work.title,
     slug: work.slug,
+    image: { src: work.image, type: 'image' },
     hero: { src: work.hero, type: work.heroType },
     challenge: work.challenge,
     client: work.client,
     year: work.year,
-    services: work.services.split('/').map((service) => service.trim()).filter(Boolean),
+    services: work.services.split(/\s+\/\s+/).map((service) => service.trim()).filter(Boolean),
     blocks,
   };
 }
@@ -185,6 +197,136 @@ function createEmptyProject(): EditorProject {
     services: [],
     blocks: [],
   };
+}
+
+function validateProject(project: EditorProject) {
+  if (!project.title.trim()) return 'Inserisci il titolo del progetto.';
+  if (!project.slug.trim()) return 'Inserisci lo slug del progetto.';
+  if (!project.image) return 'Seleziona l’immagine di anteprima.';
+  if (project.image.type !== 'image') return 'L’anteprima del progetto deve essere un’immagine.';
+  if (!project.hero) return 'Seleziona la hero del progetto.';
+  if (!project.challenge.trim()) return 'Inserisci la challenge.';
+  if (!project.client.trim()) return 'Inserisci il client.';
+  if (!project.year.trim()) return 'Inserisci l’anno.';
+  if (project.services.length === 0) return 'Inserisci almeno un servizio.';
+  if (project.blocks.length === 0) return 'Inserisci almeno un blocco nella pagina.';
+
+  for (const [index, block] of project.blocks.entries()) {
+    if (block.type === 'two-media' && (!block.left || !block.right)) {
+      return `Completa entrambi i media del blocco ${index + 1}.`;
+    }
+    if (block.type === 'full-media' && !block.media) {
+      return `Seleziona il media del blocco ${index + 1}.`;
+    }
+    if (block.type === 'media-text' && (!block.media || !block.text.trim())) {
+      return `Completa media e testo del blocco ${index + 1}.`;
+    }
+  }
+
+  return '';
+}
+
+function toProjectMedia(media: EditorMedia): ProjectMedia {
+  return { src: media.src, type: media.type };
+}
+
+async function persistMedia(media: EditorMedia, slug: string): Promise<EditorMedia> {
+  if (!media.file) return media;
+  const src = await uploadProjectMedia(media.file, slug);
+  URL.revokeObjectURL(media.src);
+  return { src, type: media.type, name: media.name };
+}
+
+async function persistBlockMedia(block: EditorBlock, slug: string): Promise<EditorBlock> {
+  if (block.type === 'two-media') {
+    const [left, right] = await Promise.all([
+      block.left ? persistMedia(block.left, slug) : undefined,
+      block.right ? persistMedia(block.right, slug) : undefined,
+    ]);
+    return { ...block, left, right };
+  }
+
+  if (block.type === 'full-media') {
+    return { ...block, media: block.media ? await persistMedia(block.media, slug) : undefined };
+  }
+
+  return { ...block, media: block.media ? await persistMedia(block.media, slug) : undefined };
+}
+
+function sectionsFromBlocks(blocks: EditorBlock[]): ProjectSection[] {
+  const sections: ProjectSection[] = [];
+  const sectionsById = new Map<string, ProjectSection>();
+
+  for (const block of blocks) {
+    const sectionId = block.sectionId ?? block.id;
+    let section = sectionsById.get(sectionId);
+    if (!section) {
+      section = { title: '', paragraphs: [], blocks: [] };
+      sectionsById.set(sectionId, section);
+      sections.push(section);
+    }
+
+    if (block.type === 'two-media' && block.left && block.right) {
+      section.blocks.push({
+        kind: 'columns',
+        left: { kind: 'media', media: toProjectMedia(block.left) },
+        right: { kind: 'media', media: toProjectMedia(block.right) },
+      });
+    } else if (block.type === 'full-media' && block.media) {
+      section.blocks.push({ kind: 'full', media: toProjectMedia(block.media) });
+    } else if (block.type === 'media-text') {
+      section.title = block.title.trim();
+      section.paragraphs = block.text
+        .split(/\n\s*\n/)
+        .map((paragraph) => paragraph.trim())
+        .filter(Boolean);
+
+      if (block.media) {
+        const mediaColumn = { kind: 'media' as const, media: toProjectMedia(block.media) };
+        const textColumn = { kind: 'text' as const };
+        section.blocks.push({
+          kind: 'columns',
+          left: block.mediaSide === 'left' ? mediaColumn : textColumn,
+          right: block.mediaSide === 'right' ? mediaColumn : textColumn,
+        });
+      }
+    }
+  }
+
+  return sections;
+}
+
+async function persistProject(project: EditorProject) {
+  if (!project.image || !project.hero) throw new Error('Media obbligatori mancanti.');
+
+  const [image, hero, blocks] = await Promise.all([
+    persistMedia(project.image, project.slug),
+    persistMedia(project.hero, project.slug),
+    Promise.all(project.blocks.map((block) => persistBlockMedia(block, project.slug))),
+  ]);
+  const persistedProject = { ...project, image, hero, blocks };
+  const payload: ProjectWriteInput = {
+    slug: project.slug,
+    title: project.title.trim(),
+    image: image.src,
+    hero: hero.src,
+    services: project.services,
+    year: project.year.trim(),
+    client: project.client.trim(),
+    challenge: project.challenge.trim(),
+    sections: sectionsFromBlocks(blocks),
+  };
+  const work = await saveProject(payload, project.sourceSlug);
+  const savedProject: EditorProject = {
+    ...persistedProject,
+    id: `work-${work.slug}`,
+    sourceSlug: work.slug,
+    isNew: false,
+    title: work.title,
+    slug: work.slug,
+  };
+
+  return { work, savedProject };
 }
 
 function IconLabel({ children }: { children: ReactNode }) {
@@ -207,10 +349,29 @@ function MediaPreview({ media, className = '' }: { media?: EditorMedia; classNam
   );
 }
 
-function MediaPicker({ media, label, onChange }: { media?: EditorMedia; label: string; onChange: (media?: EditorMedia) => void }) {
+function MediaPicker({
+  media,
+  label,
+  accept = 'image/*,video/*',
+  onChange,
+}: {
+  media?: EditorMedia;
+  label: string;
+  accept?: string;
+  onChange: (media?: EditorMedia) => void;
+}) {
+  const [error, setError] = useState('');
+
   const handleFile = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) onChange(mediaFromFile(file));
+    setError('');
+    if (file && file.size > 50 * 1024 * 1024) {
+      setError('Il file supera il limite di 50 MB.');
+    } else if (file && accept === 'image/*' && !file.type.startsWith('image/')) {
+      setError('Seleziona un file immagine.');
+    } else if (file) {
+      onChange(mediaFromFile(file));
+    }
     event.target.value = '';
   };
 
@@ -222,7 +383,7 @@ function MediaPicker({ media, label, onChange }: { media?: EditorMedia; label: s
       </div>
       <div className="flex items-center gap-2 border-t border-white/10 p-2.5">
         <label className="min-w-0 flex-1 cursor-pointer truncate text-xs text-white/60 transition hover:text-white">
-          <input className="sr-only" type="file" accept="image/*,video/*" onChange={handleFile} />
+          <input className="sr-only" type="file" accept={accept} onChange={handleFile} />
           {media?.name ?? (media ? media.src.split('/').pop() : 'Carica immagine o video')}
         </label>
         {media && (
@@ -231,6 +392,7 @@ function MediaPicker({ media, label, onChange }: { media?: EditorMedia; label: s
           </button>
         )}
       </div>
+      {error && <p className="m-0 border-t border-[#ff3700]/30 px-2.5 py-2 text-[10px] text-[#ff7250]" role="alert">{error}</p>}
     </div>
   );
 }
@@ -386,16 +548,69 @@ function ProjectPreview({ project, mobile }: { project: EditorProject; mobile: b
   );
 }
 
-export function ProjectEditorPage() {
+function EditorLoadState({ children }: { children: ReactNode }) {
+  return (
+    <main className="grid min-h-screen place-items-center bg-[#151515] px-6 text-center text-sm text-white/55">
+      {children}
+    </main>
+  );
+}
+
+export function ProjectEditorPage({
+  authEmail,
+  isSigningOut,
+  onSignOut,
+}: {
+  authEmail: string;
+  isSigningOut: boolean;
+  onSignOut: () => void;
+}) {
   usePageMeta('Project editor — Nebbia', 'Editor locale per creare e modificare i progetti Nebbia.');
 
-  const [projects, setProjects] = useState<EditorProject[]>(() => works.map(projectFromWork));
-  const [activeId, setActiveId] = useState(() => `work-${works[0]?.slug ?? ''}`);
+  const projectsQuery = useQuery(projectsQueryOptions);
+  const queryClient = useQueryClient();
+  const hydratedFromSupabase = useRef(false);
+  const [projects, setProjects] = useState<EditorProject[]>([]);
+  const [activeId, setActiveId] = useState('');
   const [dirtyIds, setDirtyIds] = useState<Set<string>>(() => new Set());
   const [search, setSearch] = useState('');
   const [serviceDraft, setServiceDraft] = useState('');
   const [mobilePreview, setMobilePreview] = useState(false);
   const [notice, setNotice] = useState('');
+  const saveProjectMutation = useMutation({
+    mutationFn: persistProject,
+    onSuccess: async ({ work, savedProject }, sourceProject) => {
+      setProjects((current) => current.map((project) => project.id === sourceProject.id ? savedProject : project));
+      setActiveId(savedProject.id);
+      setDirtyIds((current) => {
+        const next = new Set(current);
+        next.delete(sourceProject.id);
+        next.delete(savedProject.id);
+        return next;
+      });
+      queryClient.setQueryData<Work[]>(projectsQueryOptions.queryKey, (current = []) => {
+        const sourceIndex = current.findIndex((project) => project.slug === sourceProject.sourceSlug);
+        if (sourceIndex < 0) return [...current, work];
+        const next = [...current];
+        next[sourceIndex] = work;
+        return next;
+      });
+      await queryClient.invalidateQueries({ queryKey: projectsQueryOptions.queryKey });
+      setNotice(sourceProject.isNew ? 'Progetto creato su Supabase.' : 'Progetto aggiornato su Supabase.');
+    },
+    onError: (error) => {
+      setNotice(error instanceof Error ? error.message : 'Salvataggio non riuscito.');
+    },
+  });
+
+  useEffect(() => {
+    if (!projectsQuery.data || hydratedFromSupabase.current) return;
+
+    const loadedProjects = projectsQuery.data.map(projectFromWork);
+    setProjects(loadedProjects);
+    setActiveId(loadedProjects[0]?.id ?? '');
+    hydratedFromSupabase.current = true;
+  }, [projectsQuery.data]);
 
   const activeProject = projects.find((project) => project.id === activeId) ?? projects[0];
   const visibleProjects = useMemo(() => {
@@ -405,7 +620,22 @@ export function ProjectEditorPage() {
       : projects;
   }, [projects, search]);
 
-  if (!activeProject) return null;
+  if (projectsQuery.isPending || (!hydratedFromSupabase.current && projectsQuery.data)) {
+    return <EditorLoadState>Caricamento progetti…</EditorLoadState>;
+  }
+
+  if (projectsQuery.isError) {
+    return (
+      <EditorLoadState>
+        <div>
+          <p className="m-0">Non è stato possibile caricare i progetti.</p>
+          <button className="mt-4 border border-white/20 px-4 py-2 text-xs uppercase transition hover:border-[#ff3700] hover:text-[#ff3700]" type="button" onClick={() => projectsQuery.refetch()}>Riprova</button>
+        </div>
+      </EditorLoadState>
+    );
+  }
+
+  if (!activeProject) return <EditorLoadState>Nessun progetto disponibile.</EditorLoadState>;
 
   const markDirty = (projectId: string) => {
     setDirtyIds((current) => new Set(current).add(projectId));
@@ -433,11 +663,12 @@ export function ProjectEditorPage() {
   };
 
   const addBlock = (type: EditorBlock['type']) => {
+    const sectionId = makeId('section');
     const block: EditorBlock = type === 'two-media'
-      ? { id: makeId('block'), type: 'two-media' }
+      ? { id: makeId('block'), sectionId, type: 'two-media' }
       : type === 'full-media'
-        ? { id: makeId('block'), type: 'full-media' }
-        : { id: makeId('block'), type: 'media-text', mediaSide: 'left', title: '', text: '' };
+        ? { id: makeId('block'), sectionId, type: 'full-media' }
+        : { id: makeId('block'), sectionId, type: 'media-text', mediaSide: 'left', title: '', text: '' };
     updateProject((project) => ({ ...project, blocks: [...project.blocks, block] }));
   };
 
@@ -459,12 +690,18 @@ export function ProjectEditorPage() {
   };
 
   const saveDraft = () => {
-    setDirtyIds((current) => {
-      const next = new Set(current);
-      next.delete(activeProject.id);
-      return next;
-    });
-    setNotice('Bozza aggiornata in questa sessione. Supabase non è ancora collegato.');
+    const validationError = validateProject(activeProject);
+    if (validationError) {
+      setNotice(validationError);
+      return;
+    }
+    if (projects.some((project) => project.id !== activeProject.id && project.slug === activeProject.slug)) {
+      setNotice('Esiste già un progetto con questo slug.');
+      return;
+    }
+
+    setNotice('Salvataggio in corso…');
+    saveProjectMutation.mutate(activeProject);
   };
 
   return (
@@ -475,20 +712,29 @@ export function ProjectEditorPage() {
           <span className="h-5 w-px bg-white/15" />
           <div className="min-w-0">
             <p className="truncate text-sm font-medium">Project editor</p>
-            <p className="hidden text-[10px] uppercase text-white/35 sm:block">UI locale · Supabase non collegato</p>
+            <p className="hidden text-[10px] uppercase text-white/35 sm:block">Dati caricati da Supabase</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <span className="hidden max-w-44 truncate text-[10px] text-white/35 xl:block">{authEmail}</span>
           {activeProject.sourceSlug && (
             <a className="hidden border border-white/15 px-3.5 py-2 text-xs text-white/60 transition hover:border-white/35 hover:text-white sm:block" href={`/works/${activeProject.sourceSlug}`} target="_blank" rel="noreferrer">Vedi pagina ↗</a>
           )}
           <button
+            className="border border-white/15 px-3.5 py-2 text-xs text-white/60 transition hover:border-white/35 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+            type="button"
+            onClick={onSignOut}
+            disabled={isSigningOut}
+          >
+            {isSigningOut ? 'Uscita…' : 'Esci'}
+          </button>
+          <button
             className="bg-[#ff3700] px-4 py-2 text-xs font-medium transition hover:bg-[#ff4d1a] disabled:cursor-not-allowed disabled:bg-white/8 disabled:text-white/25"
             type="button"
             onClick={saveDraft}
-            disabled={!dirtyIds.has(activeProject.id)}
+            disabled={!dirtyIds.has(activeProject.id) || saveProjectMutation.isPending}
           >
-            Salva bozza
+            {saveProjectMutation.isPending ? 'Salvataggio…' : 'Salva progetto'}
           </button>
         </div>
       </header>
@@ -554,7 +800,7 @@ export function ProjectEditorPage() {
                 </label>
                 <label className="block space-y-2">
                   <span className={eyebrow}>Anno</span>
-                  <input className={field} inputMode="numeric" value={activeProject.year} onChange={(event) => updateProject((project) => ({ ...project, year: event.target.value }))} />
+                  <input className={field} value={activeProject.year} placeholder="2025 oppure 2023 – in corso" onChange={(event) => updateProject((project) => ({ ...project, year: event.target.value }))} />
                 </label>
                 <label className="block space-y-2 sm:col-span-2">
                   <span className={eyebrow}>Client</span>
@@ -569,11 +815,14 @@ export function ProjectEditorPage() {
 
             <section className={`${surface} p-4 sm:p-5`}>
               <div className="mb-5 flex items-center justify-between">
-                <h2 className="text-base font-medium">Hero</h2>
+                <h2 className="text-base font-medium">Anteprima e hero</h2>
                 <span className={eyebrow}>02</span>
               </div>
-              <MediaPicker media={activeProject.hero} label="Hero image / video" onChange={(hero) => updateProject((project) => ({ ...project, hero }))} />
-              <p className="mt-3 text-[11px] leading-relaxed text-white/35">Sono supportati immagini e video. Il file resta disponibile solo in questa sessione finché non verrà collegato lo storage.</p>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <MediaPicker media={activeProject.image} label="Immagine di anteprima" accept="image/*" onChange={(image) => updateProject((project) => ({ ...project, image }))} />
+                <MediaPicker media={activeProject.hero} label="Hero image / video" onChange={(hero) => updateProject((project) => ({ ...project, hero }))} />
+              </div>
+              <p className="mt-3 text-[11px] leading-relaxed text-white/35">Ogni nuovo file viene caricato nella cartella del progetto su Supabase al momento del salvataggio. Dimensione massima: 50 MB.</p>
             </section>
 
             <section className={`${surface} p-4 sm:p-5`}>

@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from '@tanstack/react-router';
-import { works, type ProjectSection, type ProjectSectionBlock, type ProjectSectionColumn } from '../data';
 import type { ProjectMedia } from '../projectMedia';
+import type { ProjectSection, ProjectSectionBlock, ProjectSectionColumn } from '../projectTypes';
+import { projectsQueryOptions } from '../supabaseProjects';
 import { usePageMeta } from '../usePageMeta';
 import { FooterBlur } from './FooterBlur';
 
@@ -80,18 +82,52 @@ function creditCellBorders(index: number, total: number) {
   ].join(' ');
 }
 
+function WorkPageState({ children }: { children: React.ReactNode }) {
+  return (
+    <main className="grid min-h-screen place-items-center bg-[#1a1a1a] px-[30px] text-center text-sm text-white/60">
+      {children}
+    </main>
+  );
+}
+
 export function WorkPage() {
   const { workSlug } = useParams({ from: '/works/$workSlug' });
+  const projectsQuery = useQuery(projectsQueryOptions);
+  const works = projectsQuery.data ?? [];
   const index = works.findIndex((item) => item.slug === workSlug);
-  const work = works[index >= 0 ? index : 0];
-  const previous = works[(index > 0 ? index : works.length) - 1];
-  const next = works[(index >= 0 ? index + 1 : 1) % works.length];
+  const work = index >= 0 ? works[index] : undefined;
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [workSlug]);
 
-  usePageMeta(`${work.title} — Nebbia`, work.statement, work.image);
+  usePageMeta(
+    work ? `${work.title} — Nebbia` : 'Progetto — Nebbia',
+    work?.statement ?? 'Progetto Nebbia Phygital Lab.',
+    work?.image ?? '/og.png',
+  );
+
+  if (projectsQuery.isPending) {
+    return <WorkPageState>Caricamento progetto…</WorkPageState>;
+  }
+
+  if (projectsQuery.isError) {
+    return (
+      <WorkPageState>
+        <div>
+          <p className="m-0">Non è stato possibile caricare il progetto.</p>
+          <button className="mt-4 border border-white/30 px-4 py-2 text-xs uppercase transition hover:border-[#ff3700] hover:text-[#ff3700]" type="button" onClick={() => projectsQuery.refetch()}>Riprova</button>
+        </div>
+      </WorkPageState>
+    );
+  }
+
+  if (!work) {
+    return <WorkPageState>Progetto non trovato.</WorkPageState>;
+  }
+
+  const previous = works[(index > 0 ? index : works.length) - 1];
+  const next = works[(index + 1) % works.length];
 
   return (
     <main className="min-h-screen bg-[#1a1a1a] pb-[50px] text-white selection:bg-[#d9ff36] selection:text-[#1a1a1a]">

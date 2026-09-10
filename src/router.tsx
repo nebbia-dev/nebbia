@@ -1,7 +1,6 @@
-import { Outlet, createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
+import { Outlet, createRootRoute, createRoute, createRouter, lazyRouteComponent } from '@tanstack/react-router';
 import { HomePage } from './HomePage';
 import { CareersPage } from './_components/CareersPage';
-import { ProjectEditorPage } from './_components/ProjectEditorPage';
 import { WorkPage } from './_components/WorkPage';
 
 const rootRoute = createRootRoute({
@@ -34,7 +33,7 @@ const careersRoute = createRoute({
 const editorRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/editor',
-  component: ProjectEditorPage,
+  component: lazyRouteComponent(() => import('./_components/ProtectedEditorPage'), 'ProtectedEditorPage'),
 });
 
 const routeTree = rootRoute.addChildren([indexRoute, workRoute, careersRoute, editorRoute]);

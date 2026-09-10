@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
-import { featuredWorks, works } from './data';
+import { getFeaturedProjects, projectsQueryOptions } from './supabaseProjects';
 import { usePageMeta } from './usePageMeta';
 import {Arrow} from "./_components/icons/Arrow";
 import { FooterBlur } from './_components/FooterBlur';
@@ -32,6 +32,9 @@ export function HomePage() {
     staleTime: 10 * 60 * 1_000,
     refetchInterval: 10 * 60 * 1_000,
   });
+  const projectsQuery = useQuery(projectsQueryOptions);
+  const works = projectsQuery.data ?? [];
+  const featuredWorks = getFeaturedProjects(works);
 
   usePageMeta('Nebbia — Phygital Lab', 'Creatività, innovazione e comunicazione tra analogico e digitale.');
 
@@ -88,7 +91,18 @@ export function HomePage() {
             <button key={view} type="button" onClick={() => setWorksView(view)} className={`uppercase cursor-pointer px-[30px] text-left text-[clamp(18px,1.95vw,25px)] font-light transition max-sm:px-[18px] ${view === 'all' ? 'border-l border-white/30' : ''} ${worksView === view ? 'bg-[#ff3700] text-[#1a1a1a]' : 'bg-[#1a1a1a] text-white'}`}>{view === 'selected' ? 'Selected Work' : 'All Works'}</button>
           ))}
         </div>
-        {worksView === 'selected' ? (
+        {projectsQuery.isPending ? (
+          <div className="grid min-h-[240px] place-items-center border-b border-white/30 px-[30px] text-sm text-white/50">
+            Caricamento progetti…
+          </div>
+        ) : projectsQuery.isError ? (
+          <div className="grid min-h-[240px] place-items-center border-b border-white/30 px-[30px] text-center">
+            <div>
+              <p className="m-0 text-sm text-white/60">Non è stato possibile caricare i progetti.</p>
+              <button className="mt-4 border border-white/30 px-4 py-2 text-xs uppercase transition hover:border-[#ff3700] hover:text-[#ff3700]" type="button" onClick={() => projectsQuery.refetch()}>Riprova</button>
+            </div>
+          </div>
+        ) : worksView === 'selected' ? (
           <div className="grid h-[572px] grid-cols-3 max-sm:h-auto max-sm:grid-cols-1">
             {featuredWorks.map((work) => (
               <Link className="group relative min-w-0 overflow-hidden border-r border-white/30 last:border-r-0 max-sm:h-[68vh] max-sm:min-h-[420px] max-sm:border-r-0 max-sm:border-b" to="/works/$workSlug" params={{ workSlug: work.slug }} key={work.slug}>
