@@ -43,16 +43,16 @@ export function CareersPage() {
       </header>
 
       <section className="mt-[50px]">
-        <header className="flex h-[51px] items-center justify-between border-b border-white/30 px-[30px] uppercase max-sm:px-[18px]">
-          <h1 className="m-0 text-[clamp(20px,2vw,26px)] font-extralight text-[#ff3700]">Lavora con noi</h1>
-        </header>
+        {/*<header className="flex h-[51px] items-center justify-between border-b border-white/30 px-[30px] uppercase max-sm:px-[18px]">*/}
+        {/*  <h1 className="m-0 text-[clamp(20px,2vw,26px)] font-extralight text-[#ff3700]">Lavora con noi</h1>*/}
+        {/*</header>*/}
 
         <div className="grid min-h-[calc(100vh-151px)] grid-cols-2 border-b border-white/30 max-lg:grid-cols-1">
           <aside className="relative flex min-h-[690px] overflow-hidden border-r border-white/30 p-[48px_30px] max-lg:min-h-[520px] max-lg:border-b max-lg:border-r-0 max-sm:min-h-[470px] max-sm:px-[18px]">
             <div className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[min(72%,520px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/25" aria-hidden="true" />
-            <div className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[min(48%,350px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9ff36]/60" aria-hidden="true" />
+            <div className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[min(48%,350px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#ff3700]/60" aria-hidden="true" />
             <div className="relative z-10 flex w-full flex-col">
-              <p className="m-0 text-[11px] uppercase opacity-55">Posizioni aperte</p>
+              <p className="m-0 text-base uppercase opacity-55">Posizioni aperte</p>
               <p className="my-auto max-w-[560px] text-[clamp(34px,5vw,72px)] font-extralight uppercase leading-[.92]">Compila il form ed allega il tuo CV!</p>
               <p className="m-0 max-w-md text-sm leading-relaxed opacity-65">Cerchiamo persone curiose, capaci di muoversi tra creatività, tecnologia e comunicazione.</p>
             </div>
@@ -61,10 +61,10 @@ export function CareersPage() {
           <div className="p-[46px_30px_64px] max-sm:px-[18px]">
             <div className="mb-12 flex items-start justify-between gap-8">
               <div>
-                <p className="mb-3 mt-0 text-[11px] uppercase opacity-55">Candidatura spontanea</p>
+                <p className="mb-3 mt-0 text-base uppercase opacity-55">Candidatura spontanea</p>
                 <h2 className="m-0 max-w-xl text-[clamp(27px,3vw,44px)] font-extralight leading-[1.02]">Raccontaci cosa sai fare e dove vuoi arrivare.</h2>
               </div>
-              <span className="shrink-0 text-[10px] uppercase opacity-45">* Obbligatorio</span>
+              <span className="shrink-0 text-base uppercase opacity-45">* Obbligatorio</span>
             </div>
 
             <form onSubmit={handleSubmit} encType="multipart/form-data">
