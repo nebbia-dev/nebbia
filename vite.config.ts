@@ -1,4 +1,3 @@
-import { sites } from '@openai/sites-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import type { IncomingMessage, ServerResponse } from 'node:http';
@@ -75,15 +74,5 @@ const weatherApi = (): Plugin => ({
 });
 
 export default defineConfig({
-  plugins: [weatherApi(), react(), tailwindcss(), sites()],
-  build: {
-    outDir: 'dist/client',
-    emptyOutDir: true,
-  },
-  server: {
-    host: '0.0.0.0',
-    watch: process.env.CODEX_SANDBOX === 'seatbelt'
-      ? { useFsEvents: false, usePolling: true }
-      : undefined,
-  },
+  plugins: [weatherApi(), react(), tailwindcss()],
 });
