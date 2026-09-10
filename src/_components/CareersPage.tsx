@@ -1,6 +1,7 @@
 import { type ChangeEvent, type FormEvent, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { usePageMeta } from '../usePageMeta';
+import { FooterBlur } from './FooterBlur';
 
 const fieldClass = 'min-h-[58px] w-full border border-white/30 bg-transparent px-4 text-base text-white outline-none transition placeholder:text-white/40 focus:relative focus:z-10 focus:border-[#d9ff36]';
 
@@ -43,8 +44,7 @@ export function CareersPage() {
 
       <section className="mt-[50px]">
         <header className="flex h-[51px] items-center justify-between border-b border-white/30 px-[30px] uppercase max-sm:px-[18px]">
-          <h1 className="m-0 text-[clamp(20px,2vw,26px)] font-extralight">Lavora con noi</h1>
-          <span className="text-[10px] tracking-[.11em] opacity-55">Join the fog</span>
+          <h1 className="m-0 text-[clamp(20px,2vw,26px)] font-light text-[#ff3700]">Lavora con noi</h1>
         </header>
 
         <div className="grid min-h-[calc(100vh-151px)] grid-cols-2 border-b border-white/30 max-lg:grid-cols-1">
@@ -52,8 +52,8 @@ export function CareersPage() {
             <div className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[min(72%,520px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/25" aria-hidden="true" />
             <div className="pointer-events-none absolute left-1/2 top-1/2 aspect-square w-[min(48%,350px)] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#d9ff36]/60" aria-hidden="true" />
             <div className="relative z-10 flex w-full flex-col">
-              <p className="m-0 text-[11px] uppercase tracking-[.08em] opacity-55">Posizioni aperte</p>
-              <p className="my-auto max-w-[560px] text-[clamp(34px,5vw,72px)] font-extralight uppercase leading-[.92] tracking-[-.065em]">Compila il form ed allega il tuo CV!</p>
+              <p className="m-0 text-[11px] uppercase opacity-55">Posizioni aperte</p>
+              <p className="my-auto max-w-[560px] text-[clamp(34px,5vw,72px)] font-light uppercase leading-[.92]">Compila il form ed allega il tuo CV!</p>
               <p className="m-0 max-w-md text-sm leading-relaxed opacity-65">Cerchiamo persone curiose, capaci di muoversi tra creatività, tecnologia e comunicazione.</p>
             </div>
           </aside>
@@ -61,8 +61,8 @@ export function CareersPage() {
           <div className="p-[46px_30px_64px] max-sm:px-[18px]">
             <div className="mb-12 flex items-start justify-between gap-8">
               <div>
-                <p className="mb-3 mt-0 text-[11px] uppercase tracking-[.08em] opacity-55">Candidatura spontanea</p>
-                <h2 className="m-0 max-w-xl text-[clamp(27px,3vw,44px)] font-extralight leading-[1.02] tracking-[-.045em]">Raccontaci cosa sai fare e dove vuoi arrivare.</h2>
+                <p className="mb-3 mt-0 text-[11px] uppercase opacity-55">Candidatura spontanea</p>
+                <h2 className="m-0 max-w-xl text-[clamp(27px,3vw,44px)] font-light leading-[1.02]">Raccontaci cosa sai fare e dove vuoi arrivare.</h2>
               </div>
               <span className="shrink-0 text-[10px] uppercase opacity-45">* Obbligatorio</span>
             </div>
@@ -91,9 +91,9 @@ export function CareersPage() {
               <label className="-mt-px flex min-h-[78px] cursor-pointer items-center justify-between gap-5 border border-white/30 px-4 transition hover:border-white focus-within:border-[#d9ff36]">
                 <span>
                   <span className="block text-sm">{fileName || 'Allega il tuo CV *'}</span>
-                  <span className="mt-1 block text-[10px] uppercase tracking-[.06em] opacity-45">PDF, DOC o DOCX · massimo 10 MB</span>
+                  <span className="mt-1 block text-[10px] uppercase opacity-45">PDF, DOC o DOCX · massimo 10 MB</span>
                 </span>
-                <span className="shrink-0 text-2xl font-extralight" aria-hidden="true">＋</span>
+                <span className="shrink-0 text-2xl font-light" aria-hidden="true">＋</span>
                 <input className="sr-only" name="cv" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={handleFile} required />
               </label>
               {fileError && <p className="mb-0 mt-2 text-sm text-[#ff5b38]" role="alert">{fileError}</p>}
@@ -103,7 +103,7 @@ export function CareersPage() {
                 <span>Ho letto la <a className="text-white underline underline-offset-4" href="https://www.iubenda.com/privacy-policy/36366271" target="_blank" rel="noreferrer">Privacy Policy</a> e acconsento al trattamento dei dati per la gestione della candidatura. *</span>
               </label>
 
-              <button className="flex h-[58px] w-full cursor-pointer items-center justify-between border border-white bg-white px-4 uppercase text-[#1a1a1a] transition hover:border-[#d9ff36] hover:bg-[#d9ff36] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d9ff36]" type="submit">
+              <button className="flex h-[58px] w-full cursor-pointer items-center justify-between border border-white bg-white px-4 uppercase text-[#1a1a1a] transition hover:border-[#ff3700] hover:bg-[#ff3700] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d9ff36]" type="submit">
                 Invia candidatura <span className="text-xl" aria-hidden="true">↗</span>
               </button>
               {submitted && <p className="mb-0 mt-4 text-sm text-[#d9ff36]" role="status">Candidatura acquisita nella demo. Collega un servizio email o di archiviazione per attivare l’invio reale.</p>}
@@ -118,8 +118,11 @@ export function CareersPage() {
         <div className="flex flex-col p-[28px_30px] max-sm:px-[18px]"><p className="mb-6 mt-0 uppercase opacity-45">Contatti</p><a href="mailto:info@nebbialab.it">info@nebbialab.it</a><a className="mt-2" href="https://www.linkedin.com/company/nebbia-phygital-lab/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
       </div>
 
-      <footer className="fixed inset-x-0 bottom-0 z-50 flex h-[50px] items-center justify-between border-t border-white/30 bg-[#1a1a1a] px-[30px] text-xs max-sm:h-[42px] max-sm:px-[18px]">
-        <span>Cremona (IT)</span><Link to="/">Nebbia Phygital Lab</Link>
+      <footer className="fixed inset-x-0 bottom-0 z-50 text-xs">
+        {/*<FooterBlur />*/}
+        <div className="flex h-[50px] items-center justify-between bg-[#1a1a1a] px-[30px] max-sm:h-[42px] max-sm:px-[18px]">
+          <span>Cremona (IT)</span><Link to="/">Nebbia Phygital Lab</Link>
+        </div>
       </footer>
     </main>
   );

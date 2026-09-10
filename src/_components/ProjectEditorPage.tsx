@@ -48,7 +48,7 @@ type EditorProject = {
 
 const surface = 'border border-white/12 bg-[#232323]';
 const field = 'w-full rounded-none border border-white/15 bg-[#181818] px-3.5 py-3 text-sm text-white outline-none transition placeholder:text-white/25 focus:border-[#ff3700]';
-const eyebrow = 'text-[10px] font-medium uppercase tracking-[0.2em] text-white/45';
+const eyebrow = 'text-[10px] font-medium uppercase text-white/45';
 
 function makeId(prefix = 'item') {
   return `${prefix}-${Math.random().toString(36).slice(2, 10)}`;
@@ -218,7 +218,7 @@ function MediaPicker({ media, label, onChange }: { media?: EditorMedia; label: s
     <div className="border border-white/10 bg-[#1b1b1b]">
       <div className="relative aspect-[4/3] overflow-hidden">
         <MediaPreview media={media} className="absolute inset-0" />
-        <span className="absolute left-2.5 top-2.5 bg-black/70 px-2 py-1 text-[9px] uppercase tracking-[0.18em] text-white/70">{label}</span>
+        <span className="absolute left-2.5 top-2.5 bg-black/70 px-2 py-1 text-[9px] uppercase text-white/70">{label}</span>
       </div>
       <div className="flex items-center gap-2 border-t border-white/10 p-2.5">
         <label className="min-w-0 flex-1 cursor-pointer truncate text-xs text-white/60 transition hover:text-white">
@@ -289,7 +289,7 @@ function BlockEditor({
               <div className="flex border border-white/12 p-0.5">
                 {(['left', 'right'] as const).map((side) => (
                   <button
-                    className={`px-3 py-1.5 text-[10px] uppercase tracking-[0.14em] transition ${block.mediaSide === side ? 'bg-[#ff3700] text-white' : 'text-white/40 hover:text-white'}`}
+                    className={`px-3 py-1.5 text-[10px] uppercase transition ${block.mediaSide === side ? 'bg-[#ff3700] text-white' : 'text-white/40 hover:text-white'}`}
                     type="button"
                     key={side}
                     onClick={() => onChange({ ...block, mediaSide: side })}
@@ -326,22 +326,22 @@ function ProjectPreview({ project, mobile }: { project: EditorProject; mobile: b
         <MediaPreview media={project.hero} className="absolute inset-0" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/15" />
         <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
-          <p className="mb-2 text-[9px] uppercase tracking-[0.2em] text-white/60">{project.year || 'Anno'} · {project.client || 'Cliente'}</p>
-          <h2 className={`${mobile ? 'text-4xl' : 'text-5xl xl:text-6xl'} max-w-3xl font-light leading-[0.92] tracking-[-0.05em]`}>{project.title || 'Progetto senza titolo'}</h2>
+          <p className="mb-2 text-[9px] uppercase text-white/60">{project.year || 'Anno'} · {project.client || 'Cliente'}</p>
+          <h2 className={`${mobile ? 'text-4xl' : 'text-5xl xl:text-6xl'} max-w-3xl font-light leading-[0.92]`}>{project.title || 'Progetto senza titolo'}</h2>
         </div>
       </div>
 
       <div className={`${mobile ? 'grid-cols-1' : 'grid-cols-3'} grid bg-[#ff3700] text-white`}>
         <div className="min-h-32 border-b border-white/20 p-5 sm:border-b-0 sm:border-r">
-          <p className="mb-5 text-[9px] uppercase tracking-[0.18em] text-white/55">Challenge</p>
+          <p className="mb-5 text-[9px] uppercase text-white/55">Challenge</p>
           <p className="text-sm leading-relaxed">{project.challenge || 'La challenge del progetto apparirà qui.'}</p>
         </div>
         <div className="min-h-32 border-b border-white/20 p-5 sm:border-b-0 sm:border-r">
-          <p className="mb-5 text-[9px] uppercase tracking-[0.18em] text-white/55">Client</p>
+          <p className="mb-5 text-[9px] uppercase text-white/55">Client</p>
           <p className="text-sm">{project.client || '—'}</p>
         </div>
         <div className="min-h-32 p-5">
-          <p className="mb-5 text-[9px] uppercase tracking-[0.18em] text-white/55">Services</p>
+          <p className="mb-5 text-[9px] uppercase text-white/55">Services</p>
           <p className="text-sm leading-relaxed">{project.services.join(' / ') || '—'}</p>
         </div>
       </div>
@@ -370,7 +370,7 @@ function ProjectPreview({ project, mobile }: { project: EditorProject; mobile: b
           const mediaPanel = <MediaPreview media={block.media} className="min-h-56" />;
           const copyPanel = (
             <div className="flex min-h-56 flex-col justify-center bg-[#efeee9] p-6 text-[#1a1a1a]">
-              {block.title && <h3 className="mb-5 text-[10px] font-semibold uppercase tracking-[0.18em]">{block.title}</h3>}
+              {block.title && <h3 className="mb-5 text-[10px] font-semibold uppercase">{block.title}</h3>}
               <p className="whitespace-pre-line text-sm leading-relaxed">{block.text || 'Il testo del blocco apparirà qui.'}</p>
             </div>
           );
@@ -471,11 +471,11 @@ export function ProjectEditorPage() {
     <main className="min-h-screen bg-[#151515] text-white">
       <header className="sticky top-0 z-40 flex h-16 items-center justify-between gap-4 border-b border-white/10 bg-[#151515]/95 px-4 backdrop-blur-xl lg:px-6">
         <div className="flex min-w-0 items-center gap-4">
-          <a className="text-lg font-semibold tracking-[-0.04em]" href="/" aria-label="Torna al sito Nebbia">nebbia.</a>
+          <a className="text-lg font-semibold" href="/" aria-label="Torna al sito Nebbia">nebbia.</a>
           <span className="h-5 w-px bg-white/15" />
           <div className="min-w-0">
             <p className="truncate text-sm font-medium">Project editor</p>
-            <p className="hidden text-[10px] uppercase tracking-[0.16em] text-white/35 sm:block">UI locale · Supabase non collegato</p>
+            <p className="hidden text-[10px] uppercase text-white/35 sm:block">UI locale · Supabase non collegato</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -529,8 +529,8 @@ export function ProjectEditorPage() {
             <div>
               <p className={eyebrow}>Contenuti del progetto</p>
               <div className="mt-2 flex flex-wrap items-end justify-between gap-3">
-                <h1 className="text-3xl font-light tracking-[-0.04em]">{activeProject.title}</h1>
-                <span className="text-[10px] uppercase tracking-[0.16em] text-white/35">{activeProject.blocks.length} blocchi</span>
+                <h1 className="text-3xl font-light">{activeProject.title}</h1>
+                <span className="text-[10px] uppercase text-white/35">{activeProject.blocks.length} blocchi</span>
               </div>
               {notice && <p className="mt-4 border-l-2 border-[#ff3700] pl-3 text-xs leading-relaxed text-white/55">{notice}</p>}
             </div>
@@ -549,7 +549,7 @@ export function ProjectEditorPage() {
                   <span className={eyebrow}>Slug</span>
                   <div className="flex">
                     <input className={`${field} min-w-0 border-r-0`} value={activeProject.slug} placeholder="nome-progetto" onChange={(event) => updateProject((project) => ({ ...project, slug: slugify(event.target.value) }))} />
-                    <button className="border border-white/15 px-3 text-[10px] uppercase tracking-wider text-white/45 hover:border-[#ff3700] hover:text-white" type="button" onClick={() => updateProject((project) => ({ ...project, slug: slugify(project.title) }))}>Genera</button>
+                    <button className="border border-white/15 px-3 text-[10px] uppercase text-white/45 hover:border-[#ff3700] hover:text-white" type="button" onClick={() => updateProject((project) => ({ ...project, slug: slugify(project.title) }))}>Genera</button>
                   </div>
                 </label>
                 <label className="block space-y-2">
@@ -606,9 +606,9 @@ export function ProjectEditorPage() {
               <div className="mb-5 flex items-end justify-between gap-3">
                 <div>
                   <p className={eyebrow}>04</p>
-                  <h2 className="mt-2 text-xl font-light tracking-[-0.03em]">Composizione pagina</h2>
+                  <h2 className="mt-2 text-xl font-light">Composizione pagina</h2>
                 </div>
-                <span className="text-[10px] uppercase tracking-[0.16em] text-white/35">Ordine dall’alto</span>
+                <span className="text-[10px] uppercase text-white/35">Ordine dall’alto</span>
               </div>
 
               <div className="space-y-4">
@@ -660,8 +660,8 @@ export function ProjectEditorPage() {
               <p className="mt-1 text-xs text-white/35">Aggiornata mentre scrivi</p>
             </div>
             <div className="flex border border-white/12 p-0.5">
-              <button className={`px-2.5 py-1.5 text-[10px] uppercase tracking-wider ${!mobilePreview ? 'bg-white text-black' : 'text-white/40'}`} type="button" onClick={() => setMobilePreview(false)} aria-label="Anteprima desktop">Desktop</button>
-              <button className={`px-2.5 py-1.5 text-[10px] uppercase tracking-wider ${mobilePreview ? 'bg-white text-black' : 'text-white/40'}`} type="button" onClick={() => setMobilePreview(true)} aria-label="Anteprima mobile">Mobile</button>
+              <button className={`px-2.5 py-1.5 text-[10px] uppercase ${!mobilePreview ? 'bg-white text-black' : 'text-white/40'}`} type="button" onClick={() => setMobilePreview(false)} aria-label="Anteprima desktop">Desktop</button>
+              <button className={`px-2.5 py-1.5 text-[10px] uppercase ${mobilePreview ? 'bg-white text-black' : 'text-white/40'}`} type="button" onClick={() => setMobilePreview(true)} aria-label="Anteprima mobile">Mobile</button>
             </div>
           </div>
           <ProjectPreview project={activeProject} mobile={mobilePreview} />

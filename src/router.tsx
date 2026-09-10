@@ -1,12 +1,14 @@
 import { Outlet, createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
 import { HomePage } from './HomePage';
+import { CareersPage } from './_components/CareersPage';
+import { ProjectEditorPage } from './_components/ProjectEditorPage';
 import { WorkPage } from './_components/WorkPage';
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
   notFoundComponent: () => (
     <main className="grid min-h-screen place-items-center bg-[#1a1a1a] p-8 text-center text-white">
-      <div><p className="text-xs uppercase opacity-60">404 / Persi nella nebbia</p><a className="mt-5 block text-5xl font-extralight tracking-tight" href="/">Torna alla luce →</a></div>
+      <div><p className="text-xs uppercase opacity-60">404 / Persi nella nebbia</p><a className="mt-5 block text-5xl font-light" href="/">Torna alla luce →</a></div>
     </main>
   ),
 });
@@ -23,7 +25,19 @@ const workRoute = createRoute({
   component: WorkPage,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, workRoute]);
+const careersRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/candidati-ora',
+  component: CareersPage,
+});
+
+const editorRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/editor',
+  component: ProjectEditorPage,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute, workRoute, careersRoute, editorRoute]);
 
 export const router = createRouter({
   routeTree,
