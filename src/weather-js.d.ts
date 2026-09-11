@@ -9,6 +9,7 @@ declare module 'weather-js' {
   export type WeatherSearchResult = {
     current: {
       temperature?: string;
+      skycode?: string;
       skytext?: string;
     } | null;
   };

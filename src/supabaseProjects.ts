@@ -1,4 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
+import type { Language } from './language';
 import type { Credit, ProjectSection, Work } from './projectTypes';
 import { getSupabaseConfig } from './supabaseConfig';
 
@@ -88,9 +89,13 @@ function projectFromRow(row: ProjectRow): Work {
   };
 }
 
-async function fetchProjects(signal?: AbortSignal): Promise<Work[]> {
+export function projectTableName(language: Language) {
+  return language === 'en' ? 'Projects_EN' : 'Projects';
+}
+
+async function fetchProjects(language: Language, signal?: AbortSignal): Promise<Work[]> {
   const { url, publishableKey } = getSupabaseConfig();
-  const endpoint = new URL(`/rest/v1/${encodeURIComponent('Projects')}`, url);
+  const endpoint = new URL(`/rest/v1/${encodeURIComponent(projectTableName(language))}`, url);
   endpoint.searchParams.set(
     'select',
     'slug,title,image,hero,services,year,client,challenge,sections,credits',
@@ -112,15 +117,19 @@ async function fetchProjects(signal?: AbortSignal): Promise<Work[]> {
     .sort((left, right) => {
       const leftPosition = projectPosition.get(left.slug) ?? Number.MAX_SAFE_INTEGER;
       const rightPosition = projectPosition.get(right.slug) ?? Number.MAX_SAFE_INTEGER;
-      return leftPosition - rightPosition || left.title.localeCompare(right.title, 'it');
+      return leftPosition - rightPosition || left.title.localeCompare(right.title, language);
     });
 }
 
-export const projectsQueryOptions = queryOptions({
-  queryKey: ['supabase', 'projects'],
-  queryFn: ({ signal }) => fetchProjects(signal),
-  staleTime: 5 * 60 * 1_000,
-});
+export function localizedProjectsQueryOptions(language: Language) {
+  return queryOptions({
+    queryKey: ['supabase', 'projects', language],
+    queryFn: ({ signal }) => fetchProjects(language, signal),
+    staleTime: 5 * 60 * 1_000,
+  });
+}
+
+export const projectsQueryOptions = localizedProjectsQueryOptions('it');
 
 export function getFeaturedProjects(projects: Work[]) {
   return featuredProjectSlugs
@@ -161,9 +170,10 @@ export async function uploadProjectMedia(file: File, slug: string): Promise<stri
 export async function saveProject(
   project: ProjectWriteInput,
   sourceSlug?: string,
+  language: Language = 'it',
 ): Promise<Work> {
   const { url } = getSupabaseConfig();
-  const endpoint = new URL(`/rest/v1/${encodeURIComponent('Projects')}`, url);
+  const endpoint = new URL(`/rest/v1/${encodeURIComponent(projectTableName(language))}`, url);
   const isUpdate = Boolean(sourceSlug);
   if (sourceSlug) endpoint.searchParams.set('slug', `eq.${sourceSlug}`);
 
@@ -184,4 +194,59 @@ export async function saveProject(
   const rows = await response.json() as ProjectRow[];
   if (!rows[0]) throw new Error('Supabase non ha restituito il progetto salvato.');
   return projectFromRow(rows[0]);
+}
+
+export async function syncProjectMediaToOtherLanguage(
+  project: Pick<ProjectWriteInput, 'slug' | 'image' | 'hero' | 'sections'>,
+  sourceSlug: string | undefined,
+  language: Language,
+): Promise<boolean> {
+  const { url } = getSupabaseConfig();
+  const targetLanguage: Language = language === 'en' ? 'it' : 'en';
+  const targetTable = projectTableName(targetLanguage);
+  const lookupSlug = sourceSlug ?? project.slug;
+  const lookupEndpoint = new URL(`/rest/v1/${encodeURIComponent(targetTable)}`, url);
+  lookupEndpoint.searchParams.set('slug', `eq.${lookupSlug}`);
+  lookupEndpoint.searchParams.set('select', 'slug,sections');
+
+  const lookupResponse = await fetch(lookupEndpoint, {
+    headers: await authenticatedRequestHeaders(),
+  });
+
+  if (lookupResponse.status === 404) return false;
+  if (!lookupResponse.ok) {
+    throw new Error(`Sincronizzazione media fallita (${lookupResponse.status}): ${await lookupResponse.text()}`);
+  }
+
+  const [targetProject] = await lookupResponse.json() as Pick<ProjectRow, 'slug' | 'sections'>[];
+  if (!targetProject) return false;
+
+  const targetSections = targetProject.sections ?? [];
+  const syncedSections = project.sections.map((section, index) => ({
+    ...section,
+    title: targetSections[index]?.title ?? '',
+    paragraphs: targetSections[index]?.paragraphs ?? [],
+  }));
+  const updateEndpoint = new URL(`/rest/v1/${encodeURIComponent(targetTable)}`, url);
+  updateEndpoint.searchParams.set('slug', `eq.${lookupSlug}`);
+
+  const updateResponse = await fetch(updateEndpoint, {
+    method: 'PATCH',
+    headers: await authenticatedRequestHeaders({
+      'Content-Type': 'application/json',
+      Prefer: 'return=minimal',
+    }),
+    body: JSON.stringify({
+      slug: project.slug,
+      image: project.image,
+      hero: project.hero,
+      sections: syncedSections,
+    }),
+  });
+
+  if (!updateResponse.ok) {
+    throw new Error(`Sincronizzazione media fallita (${updateResponse.status}): ${await updateResponse.text()}`);
+  }
+
+  return true;
 }

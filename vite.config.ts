@@ -15,7 +15,8 @@ async function handleWeatherRequest(request: IncomingMessage, response: ServerRe
   }
 
   try {
-    const data = await findCremonaWeather();
+    const language = new URL(request.url ?? '', 'http://localhost').searchParams.get('lang') === 'en' ? 'en-US' : 'it-IT';
+    const data = await findCremonaWeather(language);
     response.statusCode = 200;
     response.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
     response.end(JSON.stringify(data));

@@ -2,6 +2,7 @@ import { findCremonaWeather } from '../../server/weather';
 
 type NetlifyEvent = {
   httpMethod: string;
+  queryStringParameters?: Record<string, string | undefined> | null;
 };
 
 type NetlifyResponse = {
@@ -24,7 +25,8 @@ export async function handler(event: NetlifyEvent): Promise<NetlifyResponse> {
   }
 
   try {
-    const data = await findCremonaWeather();
+    const language = event.queryStringParameters?.lang === 'en' ? 'en-US' : 'it-IT';
+    const data = await findCremonaWeather(language);
     return {
       statusCode: 200,
       headers: {

@@ -1,8 +1,9 @@
 import { type ChangeEvent, type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { workPath, type Language } from '../language';
 import type { ProjectMedia } from '../projectMedia';
 import type { ProjectSection, ProjectSectionBlock, Work } from '../projectTypes';
-import { projectsQueryOptions, saveProject, uploadProjectMedia, type ProjectWriteInput } from '../supabaseProjects';
+import { localizedProjectsQueryOptions, saveProject, syncProjectMediaToOtherLanguage, uploadProjectMedia, type ProjectWriteInput } from '../supabaseProjects';
 import { usePageMeta } from '../usePageMeta';
 
 type EditorMedia = {
@@ -185,11 +186,11 @@ function projectFromWork(work: Work): EditorProject {
   };
 }
 
-function createEmptyProject(): EditorProject {
+function createEmptyProject(language: Language): EditorProject {
   return {
     id: makeId('project'),
     isNew: true,
-    title: 'Progetto senza titolo',
+    title: language === 'en' ? 'Untitled project' : 'Progetto senza titolo',
     slug: '',
     challenge: '',
     client: '',
@@ -296,7 +297,7 @@ function sectionsFromBlocks(blocks: EditorBlock[]): ProjectSection[] {
   return sections;
 }
 
-async function persistProject(project: EditorProject) {
+async function persistProject(project: EditorProject, language: Language) {
   if (!project.image || !project.hero) throw new Error('Media obbligatori mancanti.');
 
   const [image, hero, blocks] = await Promise.all([
@@ -316,7 +317,8 @@ async function persistProject(project: EditorProject) {
     challenge: project.challenge.trim(),
     sections: sectionsFromBlocks(blocks),
   };
-  const work = await saveProject(payload, project.sourceSlug);
+  const work = await saveProject(payload, project.sourceSlug, language);
+  await syncProjectMediaToOtherLanguage(payload, project.sourceSlug, language);
   const savedProject: EditorProject = {
     ...persistedProject,
     id: `work-${work.slug}`,
@@ -556,18 +558,23 @@ function EditorLoadState({ children }: { children: ReactNode }) {
   );
 }
 
-export function ProjectEditorPage({
+function ProjectEditorWorkspace({
   authEmail,
   isSigningOut,
   onSignOut,
+  language,
+  onLanguageChange,
 }: {
   authEmail: string;
   isSigningOut: boolean;
   onSignOut: () => void;
+  language: Language;
+  onLanguageChange: (language: Language) => void;
 }) {
   usePageMeta('Project editor — Nebbia', 'Editor locale per creare e modificare i progetti Nebbia.');
 
-  const projectsQuery = useQuery(projectsQueryOptions);
+  const queryOptions = localizedProjectsQueryOptions(language);
+  const projectsQuery = useQuery(queryOptions);
   const queryClient = useQueryClient();
   const hydratedFromSupabase = useRef(false);
   const [projects, setProjects] = useState<EditorProject[]>([]);
@@ -578,7 +585,7 @@ export function ProjectEditorPage({
   const [mobilePreview, setMobilePreview] = useState(false);
   const [notice, setNotice] = useState('');
   const saveProjectMutation = useMutation({
-    mutationFn: persistProject,
+    mutationFn: (project: EditorProject) => persistProject(project, language),
     onSuccess: async ({ work, savedProject }, sourceProject) => {
       setProjects((current) => current.map((project) => project.id === sourceProject.id ? savedProject : project));
       setActiveId(savedProject.id);
@@ -588,15 +595,17 @@ export function ProjectEditorPage({
         next.delete(savedProject.id);
         return next;
       });
-      queryClient.setQueryData<Work[]>(projectsQueryOptions.queryKey, (current = []) => {
+      queryClient.setQueryData<Work[]>(queryOptions.queryKey, (current = []) => {
         const sourceIndex = current.findIndex((project) => project.slug === sourceProject.sourceSlug);
         if (sourceIndex < 0) return [...current, work];
         const next = [...current];
         next[sourceIndex] = work;
         return next;
       });
-      await queryClient.invalidateQueries({ queryKey: projectsQueryOptions.queryKey });
-      setNotice(sourceProject.isNew ? 'Progetto creato su Supabase.' : 'Progetto aggiornato su Supabase.');
+      await queryClient.invalidateQueries({ queryKey: queryOptions.queryKey });
+      setNotice(sourceProject.isNew
+        ? `Progetto creato in ${language === 'en' ? 'Projects_EN' : 'Projects'}.`
+        : `Progetto aggiornato in ${language === 'en' ? 'Projects_EN' : 'Projects'}.`);
     },
     onError: (error) => {
       setNotice(error instanceof Error ? error.message : 'Salvataggio non riuscito.');
@@ -648,7 +657,7 @@ export function ProjectEditorPage({
   };
 
   const addProject = () => {
-    const project = createEmptyProject();
+    const project = createEmptyProject(language);
     setProjects((current) => [project, ...current]);
     setActiveId(project.id);
     setServiceDraft('');
@@ -716,9 +725,22 @@ export function ProjectEditorPage({
           </div>
         </div>
         <div className="flex items-center gap-2">
+          <div className="flex border border-white/15 p-0.5" aria-label="Lingua dei contenuti">
+            {(['it', 'en'] as const).map((option) => (
+              <button
+                className={`px-2.5 py-1.5 text-[10px] font-medium uppercase transition ${language === option ? 'bg-[#ff3700] text-white' : 'text-white/40 hover:text-white'}`}
+                type="button"
+                key={option}
+                onClick={() => onLanguageChange(option)}
+                aria-pressed={language === option}
+              >
+                {option}
+              </button>
+            ))}
+          </div>
           <span className="hidden max-w-44 truncate text-[10px] text-white/35 xl:block">{authEmail}</span>
           {activeProject.sourceSlug && (
-            <a className="hidden border border-white/15 px-3.5 py-2 text-xs text-white/60 transition hover:border-white/35 hover:text-white sm:block" href={`/works/${activeProject.sourceSlug}`} target="_blank" rel="noreferrer">Vedi pagina ↗</a>
+            <a className="hidden border border-white/15 px-3.5 py-2 text-xs text-white/60 transition hover:border-white/35 hover:text-white sm:block" href={workPath(language, activeProject.sourceSlug)} target="_blank" rel="noreferrer">Vedi pagina ↗</a>
           )}
           <button
             className="border border-white/15 px-3.5 py-2 text-xs text-white/60 transition hover:border-white/35 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
@@ -917,5 +939,22 @@ export function ProjectEditorPage({
         </aside>
       </div>
     </main>
+  );
+}
+
+export function ProjectEditorPage(props: {
+  authEmail: string;
+  isSigningOut: boolean;
+  onSignOut: () => void;
+}) {
+  const [language, setLanguage] = useState<Language>('it');
+
+  return (
+    <ProjectEditorWorkspace
+      key={language}
+      {...props}
+      language={language}
+      onLanguageChange={setLanguage}
+    />
   );
 }

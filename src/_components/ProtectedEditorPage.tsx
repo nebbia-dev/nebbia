@@ -3,7 +3,6 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { ProjectEditorPage } from './ProjectEditorPage';
 import { authSessionQueryOptions, signInWithPassword, signOut } from '../supabaseAuth';
 import { supabase } from '../supabaseClient';
-import { projectsQueryOptions } from '../supabaseProjects';
 import { usePageMeta } from '../usePageMeta';
 
 const fieldClass = 'h-14 w-full border border-white/20 bg-transparent px-4 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-[#ff3700]';
@@ -114,14 +113,14 @@ export function ProtectedEditorPage() {
     mutationFn: signOut,
     onSuccess: () => {
       queryClient.setQueryData(authSessionQueryOptions.queryKey, null);
-      queryClient.removeQueries({ queryKey: projectsQueryOptions.queryKey });
+      queryClient.removeQueries({ queryKey: ['supabase', 'projects'] });
     },
   });
 
   useEffect(() => {
     const { data: subscription } = supabase.auth.onAuthStateChange((_event, session) => {
       queryClient.setQueryData(authSessionQueryOptions.queryKey, session);
-      if (!session) queryClient.removeQueries({ queryKey: projectsQueryOptions.queryKey });
+      if (!session) queryClient.removeQueries({ queryKey: ['supabase', 'projects'] });
     });
 
     return () => subscription.subscription.unsubscribe();

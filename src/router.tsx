@@ -2,14 +2,25 @@ import { Outlet, createRootRoute, createRoute, createRouter, lazyRouteComponent 
 import { HomePage } from './HomePage';
 import { CareersPage } from './_components/CareersPage';
 import { WorkPage } from './_components/WorkPage';
+import { useDocumentLanguage } from './language';
+
+function NotFoundPage() {
+  const isEnglish = window.location.pathname.startsWith('/en');
+  useDocumentLanguage(isEnglish ? 'en' : 'it');
+
+  return (
+    <main className="grid min-h-screen place-items-center bg-[#1a1a1a] p-8 text-center text-white">
+      <div>
+        <p className="text-xs uppercase opacity-60">404 / {isEnglish ? 'Lost in the fog' : 'Persi nella nebbia'}</p>
+        <a className="mt-5 block text-5xl font-extralight" href={isEnglish ? '/en' : '/'}>{isEnglish ? 'Back to the light' : 'Torna alla luce'} →</a>
+      </div>
+    </main>
+  );
+}
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
-  notFoundComponent: () => (
-    <main className="grid min-h-screen place-items-center bg-[#1a1a1a] p-8 text-center text-white">
-      <div><p className="text-xs uppercase opacity-60">404 / Persi nella nebbia</p><a className="mt-5 block text-5xl font-extralight" href="/">Torna alla luce →</a></div>
-    </main>
-  ),
+  notFoundComponent: NotFoundPage,
 });
 
 const indexRoute = createRoute({
@@ -24,10 +35,28 @@ const workRoute = createRoute({
   component: WorkPage,
 });
 
+const englishIndexRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/en',
+  component: () => <HomePage language="en" />,
+});
+
+const englishWorkRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/en/works/$workSlug',
+  component: () => <WorkPage language="en" />,
+});
+
 const careersRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: '/candidati-ora',
   component: CareersPage,
+});
+
+const englishCareersRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/en/apply-now',
+  component: () => <CareersPage language="en" />,
 });
 
 const editorRoute = createRoute({
@@ -36,7 +65,15 @@ const editorRoute = createRoute({
   component: lazyRouteComponent(() => import('./_components/ProtectedEditorPage'), 'ProtectedEditorPage'),
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, workRoute, careersRoute, editorRoute]);
+const routeTree = rootRoute.addChildren([
+  indexRoute,
+  workRoute,
+  careersRoute,
+  englishIndexRoute,
+  englishWorkRoute,
+  englishCareersRoute,
+  editorRoute,
+]);
 
 export const router = createRouter({
   routeTree,
