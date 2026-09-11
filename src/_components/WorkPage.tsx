@@ -8,10 +8,12 @@ import { usePageMeta } from '../usePageMeta';
 import { SiteFooter } from './SiteFooter';
 
 function ProjectMedium({ item, className, label }: { item: ProjectMedia; className: string; label: string }) {
+  const mediaClassName = `block min-w-0 max-w-full ${className}`;
+
   return item.type === 'video' ? (
-    <video className={className} src={item.src} autoPlay muted loop playsInline preload="metadata" aria-label={label} />
+    <video className={mediaClassName} src={item.src} autoPlay muted loop playsInline preload="metadata" aria-label={label} />
   ) : (
-    <img className={className} src={item.src} alt="" loading="lazy" />
+    <img className={mediaClassName} src={item.src} alt="" loading="lazy" />
   );
 }
 
@@ -40,11 +42,11 @@ function SectionLayoutBlock({ block, section, workTitle, blockIndex }: { block: 
     const rightSize = block.right.kind === 'text' ? 'md:aspect-square' : 'aspect-square';
 
     return (
-      <div className="grid border-b border-[#1a1a1a]/30 md:grid-cols-2">
-        <div className={`${leftSize} border-b border-white/30 md:border-b-0 md:border-r`}>
+      <div className="grid min-w-0 border-b border-[#1a1a1a]/30 md:grid-cols-2">
+        <div className={`${leftSize} min-w-0 border-b border-white/30 md:border-b-0 md:border-r`}>
           <SectionCell cell={block.left} section={section} workTitle={workTitle} label={`sezione ${section.title || 'senza titolo'}, colonna sinistra`} />
         </div>
-        <div className={rightSize}>
+        <div className={`${rightSize} min-w-0`}>
           <SectionCell cell={block.right} section={section} workTitle={workTitle} label={`sezione ${section.title || 'senza titolo'}, colonna destra`} />
         </div>
       </div>
@@ -54,7 +56,7 @@ function SectionLayoutBlock({ block, section, workTitle, blockIndex }: { block: 
   if (block.kind === 'grid') {
     const columnsClass = block.columns === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2';
     return (
-      <div className={`grid border-b border-white/30 ${columnsClass}`}>
+      <div className={`grid min-w-0 border-b border-white/30 ${columnsClass}`}>
         {block.items.map((item, itemIndex) => (
           <ProjectMedium key={item.src} item={item} className="aspect-square h-full w-full border-b border-r border-white/30 bg-[#1a1a1a] object-cover" label={`${workTitle}, griglia ${blockIndex + 1}, elemento ${itemIndex + 1}`} />
         ))}
@@ -84,7 +86,7 @@ function creditCellBorders(index: number, total: number) {
 
 function WorkPageState({ children }: { children: React.ReactNode }) {
   return (
-    <main className="grid min-h-screen place-items-center bg-[#1a1a1a] px-[30px] text-center text-sm text-white/60">
+    <main className="work-page grid min-h-screen w-full max-w-full place-items-center overflow-x-clip bg-[#1a1a1a] px-[30px] text-center text-sm text-white/60">
       {children}
     </main>
   );
@@ -100,6 +102,16 @@ export function WorkPage() {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [workSlug]);
+
+  useEffect(() => {
+    document.documentElement.classList.add('work-page-active');
+    document.body.classList.add('work-page-active');
+
+    return () => {
+      document.documentElement.classList.remove('work-page-active');
+      document.body.classList.remove('work-page-active');
+    };
+  }, []);
 
   usePageMeta(
     work ? `${work.title} — Nebbia` : 'Progetto — Nebbia',
@@ -130,7 +142,7 @@ export function WorkPage() {
   const next = works[(index + 1) % works.length];
 
   return (
-    <main className="min-h-screen bg-[#1a1a1a] pb-[50px] text-white selection:bg-[#ff3700] selection:text-[#1a1a1a] max-sm:pb-[42px]">
+    <main className="work-page min-h-screen w-full max-w-full overflow-x-clip bg-[#1a1a1a] pb-[50px] text-white selection:bg-[#ff3700] selection:text-[#1a1a1a] max-sm:pb-[42px]">
       <header className="fixed inset-x-0 top-0 z-30 flex h-[60px] items-center justify-between border-b border-white/20 bg-[#1a1a1a] px-[30px] max-sm:px-[18px]">
         <Link to="/" aria-label="Torna alla home"><img className="w-[222px] max-sm:w-[174px]" src="/assets/nebbia-logo.svg" alt="Nebbia Phygital Lab" /></Link>
         <Link className="text-sm uppercase" to="/">← Tutti i lavori</Link>
@@ -138,22 +150,22 @@ export function WorkPage() {
 
       <section className="relative mt-[50px] h-[72vh] min-h-[520px] max-h-[820px] overflow-hidden bg-[#ff3700]">
         {work.heroType === 'video' ? (
-          <video className="h-full min-h-[520px] w-full object-cover" src={work.hero} autoPlay muted loop playsInline preload="metadata" aria-label={work.title} />
+          <video className="block h-full min-h-[520px] w-full max-w-full object-cover" src={work.hero} autoPlay muted loop playsInline preload="metadata" aria-label={work.title} />
         ) : (
-          <img className="h-full min-h-[520px] w-full object-cover" src={work.hero ?? work.image} alt={work.title} />
+          <img className="block h-full min-h-[520px] w-full max-w-full object-cover" src={work.hero ?? work.image} alt={work.title} />
         )}
         <h1 className="sr-only">{work.title}</h1>
       </section>
 
-      <section className="grid grid-cols-3 border-b border-t border-[#1a1a1a]/30 bg-[#ff3700] text-[#1a1a1a] max-md:grid-cols-1">
-        <div className="border-r border-[#1a1a1a]/30 p-[56px_30px] max-md:border-b max-md:border-r-0 max-sm:p-[36px_18px]">
+      <section className="grid min-w-0 grid-cols-3 border-b border-t border-[#1a1a1a]/30 bg-[#ff3700] text-[#1a1a1a] max-md:grid-cols-1">
+        <div className="min-w-0 border-r border-[#1a1a1a]/30 p-[56px_30px] max-md:border-b max-md:border-r-0 max-sm:p-[36px_18px]">
           <p className="mb-7 mt-0 text-md uppercase opacity-55">Challenge</p>
           <p className="m-0 text-lg leading-tight">{work.challenge ?? work.statement}</p>
         </div>
-          <div className="border-r border-[#1a1a1a]/30 p-[56px_30px] max-sm:border-b max-sm:border-r-0 max-sm:p-[36px_18px]">
+          <div className="min-w-0 border-r border-[#1a1a1a]/30 p-[56px_30px] max-sm:border-b max-sm:border-r-0 max-sm:p-[36px_18px]">
               <p className="mb-7 mt-0 text-md uppercase opacity-55">Client</p>
               <p className="m-0 text-lg leading-tight">{work.client}, {work.year}</p></div>
-          <div className="p-[56px_30px] max-sm:p-[36px_18px]">
+          <div className="min-w-0 p-[56px_30px] max-sm:p-[36px_18px]">
               <p className="mb-7 mt-0 text-md uppercase opacity-55">Services</p>
               <p className="m-0 text-lg leading-tight">{work.services}</p
               ></div>
@@ -172,18 +184,18 @@ export function WorkPage() {
       {work.credits && <section className="border-b border-white/30 p-[76px_0px_96px] max-sm:p-[54px_0px_70px]">
         <h2 className="mb-14 mt-0 text-xs font-normal uppercase opacity-60 pl-[30px] max-sm:pl-[18px]">Team</h2>
         <div className="grid grid-cols-1 border-b border-t border-white/30 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-          {work.credits.map((credit, creditIndex) => <div key={credit.role} className={`min-h-12 border-white/30 p-5 ${creditCellBorders(creditIndex, work.credits!.length)}`}>
+          {work.credits.map((credit, creditIndex) => <div key={credit.role} className={`min-h-12 min-w-0 break-words border-white/30 p-5 ${creditCellBorders(creditIndex, work.credits!.length)}`}>
               <p className="m-0 text-xs uppercase opacity-50">{credit.role}</p>
               <p className="mb-0 mt-3 text-sm leading-snug">{credit.names.join(', ')}</p></div>)}
         </div>
       </section>}
 
       <nav className="grid grid-cols-2 max-md:grid-cols-1">
-        <Link className="group h-[124px] border-r border-white/30 p-[30px] max-md:border-b max-md:border-r-0 max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: previous.slug }}>
+        <Link className="group h-[124px] min-w-0 overflow-hidden border-r border-white/30 p-[30px] max-md:border-b max-md:border-r-0 max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: previous.slug }}>
             <span className="text-xs uppercase opacity-55">Previous project</span>
             <h2 className="mb-0 mt-4 text-2xl font-extralight leading-[.9] transition group-hover:translate-x-2">← {previous.title}</h2>
         </Link>
-        <Link className="group h-[124px] bg-[#ff3700] p-[30px] text-[#1a1a1a] max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: next.slug }}>
+        <Link className="group h-[124px] min-w-0 overflow-hidden bg-[#ff3700] p-[30px] text-[#1a1a1a] max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: next.slug }}>
             <span className="text-xs uppercase">Next project</span>
             <h2 className="mb-0 mt-4 text-2xl font-extralight leading-[.9] transition group-hover:translate-x-2">{next.title} →</h2>
         </Link>

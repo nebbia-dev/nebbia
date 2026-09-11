@@ -12,7 +12,7 @@ async function getCremonaWeather(): Promise<WeatherResponse> {
   return response.json() as Promise<WeatherResponse>;
 }
 
-export function SiteFooter() {
+export function SiteFooter({ hiddenOnMobile = false }: { hiddenOnMobile?: boolean }) {
   const [time, setTime] = useState('');
   const weather = useQuery({
     queryKey: ['weather', 'cremona'],
@@ -33,7 +33,7 @@ export function SiteFooter() {
   }, []);
 
   return (
-    <footer className="fixed inset-x-0 bottom-0 z-[60] text-xs max-sm:text-[10px]">
+    <footer className={`fixed inset-x-0 bottom-0 z-[60] text-xs max-sm:text-[10px] ${hiddenOnMobile ? 'max-md:hidden' : ''}`}>
       <div className="flex h-[50px] items-center gap-3 bg-[#1a1a1a] px-[30px] max-sm:h-[42px] max-sm:gap-2 max-sm:px-[18px]">
         <span>Cremona (IT)</span><i className="h-3 w-px bg-white/45" />
         <span>Time: <time>{time || '--:--'}</time></span><i className="h-3 w-px bg-white/45" />

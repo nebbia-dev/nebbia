@@ -35,15 +35,15 @@ export function HomePage() {
           <a className="nav-link text-sm" href="#lavora-con-noi">Lavora con noi</a>
         </nav>
         <button className="relative hidden h-8 w-[62px] cursor-pointer border-0 bg-transparent md:hidden max-md:block" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="mobile-menu">
-          <em className="absolute left-0 top-[8px] text-[9px] not-italic">{menuOpen ? 'CHIUDI' : 'MENU'}</em>
+          {/*<em className="absolute right-10 top-[4px] not-italic">{menuOpen ? 'CHIUDI' : 'MENU'}</em>*/}
           <span className={`absolute right-0 top-[10px] h-px w-[22px] bg-white transition ${menuOpen ? 'translate-y-1 rotate-45' : ''}`} />
           <span className={`absolute right-0 top-[18px] h-px w-[22px] bg-white transition ${menuOpen ? '-translate-y-1 -rotate-45' : ''}`} />
         </button>
       </header>
 
-      <div id="mobile-menu" className={`fixed inset-x-0 bottom-[42px] top-[50px] z-40 flex flex-col justify-between bg-[#1a1a1a] p-[35px_24px] transition duration-300 md:hidden ${menuOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-3 opacity-0'}`}>
-        <nav className="flex flex-col" aria-label="Navigazione mobile">
-          {[['Lavori', 'lavori'], ['Contatti', 'contatti'], ['Lavora con noi', 'lavora-con-noi']].map(([label, id]) => <a className="text-[clamp(45px,12vw,74px)] leading-[1.05]" href={`#${id}`} onClick={() => setMenuOpen(false)} key={id}>{label}</a>)}
+      <div id="mobile-menu" className={`fixed inset-x-0 bottom-0 top-[50px] z-40 flex flex-col justify-between bg-[#1a1a1a] p-[35px_24px] transition duration-300 md:hidden ${menuOpen ? 'visible translate-y-0 opacity-100' : 'invisible -translate-y-3 opacity-0'}`}>
+        <nav className="flex flex-col text-right" aria-label="Navigazione mobile">
+          {[['Lavori', 'lavori'], ['Contatti', 'contatti'], ['Lavora con noi', 'lavora-con-noi']].map(([label, id]) => <a className="text-4xl font-extralight leading-[1.05] py-3" href={`#${id}`} onClick={() => setMenuOpen(false)} key={id}>{label}</a>)}
         </nav>
         {/*<p className="m-0 text-xs">IT / EN</p>*/}
       </div>
@@ -72,7 +72,7 @@ export function HomePage() {
       <section className="scroll-mt-[49px]" id="lavori">
         <div className={`grid h-[50px] grid-cols-2 border-y ${line} uppercase`}>
           {(['selected', 'all'] as const).map((view) => (
-            <button key={view} type="button" style={{fontWeight: 200, fontSize:'20px'}} onClick={() => setWorksView(view)} className={`text-center uppercase cursor-pointer px-[30px] transition max-sm:px-[18px] ${view === 'all' ? 'border-l border-white/30' : ''} ${worksView === view ? 'bg-[#ff3700] text-[#1a1a1a]' : 'bg-[#1a1a1a] text-white'}`}>{view === 'selected' ? 'Selected Works' : 'All Works'}</button>
+            <button key={view} type="button" style={{fontWeight: 200}} onClick={() => setWorksView(view)} className={`works-view-tab grid h-full min-w-0 cursor-pointer place-items-center whitespace-nowrap px-[30px] text-center leading-none uppercase transition max-sm:px-2 ${view === 'all' ? 'border-l border-white/30' : ''} ${worksView === view ? 'bg-[#ff3700] text-[#1a1a1a]' : 'bg-[#1a1a1a] text-white'}`}>{view === 'selected' ? 'Selected Works' : 'All Works'}</button>
           ))}
         </div>
         {projectsQuery.isPending ? (
@@ -154,9 +154,16 @@ export function HomePage() {
             <p className="m-0 text-4xl font-extralight leading-[1.08]">Vuoi far parte del nostro team?<br />
               Consulta le posizioni aperte<br />e candidati per avere l’opportunità<br />
               di partecipare a un colloquio con noi.</p></div>
-          <Link className="career-cta group relative grid min-h-[540px] place-items-center overflow-hidden bg-[#f0eee8] text-center uppercase text-[#1a1a1a] transition hover:bg-[#ff3700] max-sm:min-h-[100vw]" to="/candidati-ora">
-            <i className="absolute aspect-square w-[min(75%,390px)] rounded-full border border-[#1a1a1a] transition duration-500 group-hover:scale-80 bg-[#1a1a1a]" />
-            <span className="relative z-10 text-[clamp(36px,5.3vw,74px)] leading-[.87] font-light transition group-hover:text-white">Candidati<br />ora</span><b className="absolute right-[30px] top-6 z-10 text-[32px] font-extralight transition group-hover:text-white" aria-hidden="true">↗</b>
+          <Link className="career-cta relative grid min-h-[540px] place-items-center overflow-hidden bg-[#f0eee8] text-center uppercase text-[#1a1a1a] max-sm:min-h-[100vw]" to="/candidati-ora">
+            {(['career-ribbon-down', 'career-ribbon-up'] as const).map((ribbonClass) => (
+              <span className={`career-ribbon ${ribbonClass}`} aria-hidden="true" key={ribbonClass}>
+                <span className="career-ribbon-track">
+                  {Array.from({ length: 9 }, (_, index) => <i className="career-wordmark" key={index} />)}
+                </span>
+              </span>
+            ))}
+            <span className="career-circle" aria-hidden="true" />
+            <span className="career-label">Candidati<br />ora</span>
           </Link>
         </div>
         <div className="grid min-h-[190px] grid-cols-[2fr_1fr_1.3fr_1.35fr] border-t border-white/30 max-lg:grid-cols-2 max-sm:grid-cols-1">
@@ -167,7 +174,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <SiteFooter />
+      <SiteFooter hiddenOnMobile={menuOpen} />
     </main>
   );
 }

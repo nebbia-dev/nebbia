@@ -8,9 +8,105 @@ button, input, textarea, select { font: inherit; }
 a { color: inherit; text-decoration: none; }
 ::selection { color: #1a1a1a; background: #ff3700; }
 
+html.work-page-active,
+body.work-page-active {
+  max-width: 100%;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+@supports (overflow: clip) {
+  html.work-page-active,
+  body.work-page-active { overflow-x: clip; }
+}
+
+.work-page {
+  touch-action: pan-y pinch-zoom;
+  overscroll-behavior: none;
+}
+
 .nav-link { position: relative; padding: 16px 0; }
 .nav-link::after { content: ''; position: absolute; right: 100%; bottom: 12px; left: 0; height: 1px; background: currentColor; transition: right .25s ease; }
 .nav-link:hover::after, .nav-link:focus-visible::after { right: 0; }
+
+.works-view-tab { font-size: clamp(20px, 2.2vw, 26px); }
+
+@media (max-width: 639px) {
+  .works-view-tab { font-size: 15px; }
+}
+
+.career-cta {
+  isolation: isolate;
+  user-select: none;
+  transition: background-color .5s cubic-bezier(.22, 1, .36, 1);
+}
+
+.career-ribbon {
+  position: absolute;
+  top: 50%;
+  left: -30%;
+  z-index: 1;
+  display: flex;
+  width: 160%;
+  height: clamp(44px, 4.2vw, 56px);
+  align-items: center;
+  overflow: hidden;
+  color: #f0eee8;
+  background: #1a1a1a;
+  transform-origin: center;
+  transition: color .4s ease, transform .55s cubic-bezier(.22, 1, .36, 1);
+}
+
+.career-ribbon-track {
+  display: flex;
+  min-width: max-content;
+  align-items: center;
+  gap: clamp(20px, 2.2vw, 34px);
+}
+
+.career-wordmark {
+  display: block;
+  height: clamp(28px, 2.65vw, 38px);
+  aspect-ratio: 159 / 34;
+  flex: none;
+  background: currentColor;
+  -webkit-mask: url('/assets/nebbia-logo.svg') left top / auto 120.588% no-repeat;
+  mask: url('/assets/nebbia-logo.svg') left top / auto 120.588% no-repeat;
+}
+
+.career-ribbon-down { transform: translateY(-50%) rotate(30deg); }
+.career-ribbon-up { transform: translateY(-50%) rotate(-30deg); }
+
+.career-circle {
+  position: relative;
+  z-index: 2;
+  width: clamp(190px, 40%, 260px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #1a1a1a;
+  transition: transform .55s cubic-bezier(.22, 1, .36, 1);
+}
+
+.career-label {
+  position: absolute;
+  z-index: 3;
+  color: #f0eee8;
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 300;
+  line-height: 1.05;
+  transition: color .4s ease, transform .55s cubic-bezier(.22, 1, .36, 1);
+}
+
+.career-cta:is(:hover, :focus-visible) { background: #ff3700; }
+.career-cta:is(:hover, :focus-visible) .career-ribbon {
+  color: #ff3700;
+  transform: translateY(-50%) rotate(0deg);
+}
+.career-cta:is(:hover, :focus-visible) .career-circle { transform: scale(1.14); }
+.career-cta:is(:hover, :focus-visible) .career-label {
+  color: #ff3700;
+  transform: scale(1.14);
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
