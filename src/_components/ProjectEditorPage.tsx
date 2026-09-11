@@ -379,7 +379,7 @@ function MediaPicker({
     <div className="border border-white/10 bg-[#1b1b1b]">
       <div className="relative aspect-[4/3] overflow-hidden">
         <MediaPreview media={media} className="absolute inset-0" />
-        <span className="absolute left-2.5 top-2.5 bg-black/70 px-2 py-1 text-[9px] uppercase text-white/70">{label}</span>
+        <span className="absolute left-2.5 top-2.5 bg-[#1a1a1a]/70 px-2 py-1 text-[9px] uppercase text-white/70">{label}</span>
       </div>
       <div className="flex items-center gap-2 border-t border-white/10 p-2.5">
         <label className="min-w-0 flex-1 cursor-pointer truncate text-xs text-white/60 transition hover:text-white">
@@ -483,10 +483,10 @@ function BlockEditor({
 
 function ProjectPreview({ project, mobile }: { project: EditorProject; mobile: boolean }) {
   return (
-    <div className={`mx-auto overflow-hidden bg-[#1a1a1a] shadow-2xl shadow-black/30 transition-[width] ${mobile ? 'w-[360px] max-w-full' : 'w-full'}`}>
-      <div className={`relative overflow-hidden bg-black ${mobile ? 'aspect-[4/5]' : 'aspect-[16/8]'}`}>
+    <div className={`mx-auto overflow-hidden bg-[#1a1a1a] shadow-2xl shadow-[#1a1a1a]/30 transition-[width] ${mobile ? 'w-[360px] max-w-full' : 'w-full'}`}>
+      <div className={`relative overflow-hidden bg-[#1a1a1a] ${mobile ? 'aspect-[4/5]' : 'aspect-[16/8]'}`}>
         <MediaPreview media={project.hero} className="absolute inset-0" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a]/80 via-transparent to-[#1a1a1a]/15" />
         <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
           <p className="mb-2 text-[9px] uppercase text-white/60">{project.year || 'Anno'} · {project.client || 'Cliente'}</p>
           <h2 className={`${mobile ? 'text-4xl' : 'text-5xl xl:text-6xl'} max-w-3xl font-extralight leading-[0.92]`}>{project.title || 'Progetto senza titolo'}</h2>
@@ -909,8 +909,8 @@ export function ProjectEditorPage({
               <p className="mt-1 text-xs text-white/35">Aggiornata mentre scrivi</p>
             </div>
             <div className="flex border border-white/12 p-0.5">
-              <button className={`px-2.5 py-1.5 text-[10px] uppercase ${!mobilePreview ? 'bg-white text-black' : 'text-white/40'}`} type="button" onClick={() => setMobilePreview(false)} aria-label="Anteprima desktop">Desktop</button>
-              <button className={`px-2.5 py-1.5 text-[10px] uppercase ${mobilePreview ? 'bg-white text-black' : 'text-white/40'}`} type="button" onClick={() => setMobilePreview(true)} aria-label="Anteprima mobile">Mobile</button>
+              <button className={`px-2.5 py-1.5 text-[10px] uppercase ${!mobilePreview ? 'bg-white text-[#1a1a1a]' : 'text-white/40'}`} type="button" onClick={() => setMobilePreview(false)} aria-label="Anteprima desktop">Desktop</button>
+              <button className={`px-2.5 py-1.5 text-[10px] uppercase ${mobilePreview ? 'bg-white text-[#1a1a1a]' : 'text-white/40'}`} type="button" onClick={() => setMobilePreview(true)} aria-label="Anteprima mobile">Mobile</button>
             </div>
           </div>
           <ProjectPreview project={activeProject} mobile={mobilePreview} />

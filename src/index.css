@@ -6,7 +6,7 @@ html { scroll-behavior: smooth; }
 body { margin: 0; min-width: 320px; background: #1a1a1a; }
 button, input, textarea, select { font: inherit; }
 a { color: inherit; text-decoration: none; }
-::selection { color: #1a1a1a; background: #d9ff36; }
+::selection { color: #1a1a1a; background: #ff3700; }
 
 .nav-link { position: relative; padding: 16px 0; }
 .nav-link::after { content: ''; position: absolute; right: 100%; bottom: 12px; left: 0; height: 1px; background: currentColor; transition: right .25s ease; }

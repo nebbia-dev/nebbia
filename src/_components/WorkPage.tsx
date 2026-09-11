@@ -5,7 +5,7 @@ import type { ProjectMedia } from '../projectMedia';
 import type { ProjectSection, ProjectSectionBlock, ProjectSectionColumn } from '../projectTypes';
 import { projectsQueryOptions } from '../supabaseProjects';
 import { usePageMeta } from '../usePageMeta';
-import { FooterBlur } from './FooterBlur';
+import { SiteFooter } from './SiteFooter';
 
 function ProjectMedium({ item, className, label }: { item: ProjectMedia; className: string; label: string }) {
   return item.type === 'video' ? (
@@ -31,7 +31,7 @@ function SectionCopy({ section }: { section: ProjectSection }) {
 function SectionCell({ cell, section, workTitle, label }: { cell: ProjectSectionColumn; section: ProjectSection; workTitle: string; label: string }) {
   if (cell.kind === 'text') return <SectionCopy section={section} />;
   if (cell.kind === 'empty') return <div className="h-full bg-[#d9d9d9]" aria-hidden="true" />;
-  return <ProjectMedium item={cell.media} className="h-full w-full bg-black object-cover" label={`${workTitle}, ${label}`} />;
+  return <ProjectMedium item={cell.media} className="h-full w-full bg-white object-cover" label={`${workTitle}, ${label}`} />;
 }
 
 function SectionLayoutBlock({ block, section, workTitle, blockIndex }: { block: ProjectSectionBlock; section: ProjectSection; workTitle: string; blockIndex: number }) {
@@ -40,7 +40,7 @@ function SectionLayoutBlock({ block, section, workTitle, blockIndex }: { block: 
     const rightSize = block.right.kind === 'text' ? 'md:aspect-square' : 'aspect-square';
 
     return (
-      <div className="grid border-b border-white/30 md:grid-cols-2">
+      <div className="grid border-b border-[#1a1a1a]/30 md:grid-cols-2">
         <div className={`${leftSize} border-b border-white/30 md:border-b-0 md:border-r`}>
           <SectionCell cell={block.left} section={section} workTitle={workTitle} label={`sezione ${section.title || 'senza titolo'}, colonna sinistra`} />
         </div>
@@ -56,13 +56,13 @@ function SectionLayoutBlock({ block, section, workTitle, blockIndex }: { block: 
     return (
       <div className={`grid border-b border-white/30 ${columnsClass}`}>
         {block.items.map((item, itemIndex) => (
-          <ProjectMedium key={item.src} item={item} className="aspect-square h-full w-full border-b border-r border-white/30 bg-black object-cover" label={`${workTitle}, griglia ${blockIndex + 1}, elemento ${itemIndex + 1}`} />
+          <ProjectMedium key={item.src} item={item} className="aspect-square h-full w-full border-b border-r border-white/30 bg-[#1a1a1a] object-cover" label={`${workTitle}, griglia ${blockIndex + 1}, elemento ${itemIndex + 1}`} />
         ))}
       </div>
     );
   }
 
-  return <ProjectMedium item={block.media} className="aspect-video w-full border-b border-white/30 bg-black object-cover" label={`${workTitle}, media a tutta larghezza ${blockIndex + 1}`} />;
+  return <ProjectMedium item={block.media} className="aspect-video w-full border-b border-white/30 bg-[#1a1a1a] object-cover" label={`${workTitle}, media a tutta larghezza ${blockIndex + 1}`} />;
 }
 
 function creditCellBorders(index: number, total: number) {
@@ -130,13 +130,13 @@ export function WorkPage() {
   const next = works[(index + 1) % works.length];
 
   return (
-    <main className="min-h-screen bg-[#1a1a1a] pb-[50px] text-white selection:bg-[#d9ff36] selection:text-[#1a1a1a]">
+    <main className="min-h-screen bg-[#1a1a1a] pb-[50px] text-white selection:bg-[#ff3700] selection:text-[#1a1a1a] max-sm:pb-[42px]">
       <header className="fixed inset-x-0 top-0 z-30 flex h-[60px] items-center justify-between border-b border-white/20 bg-[#1a1a1a] px-[30px] max-sm:px-[18px]">
         <Link to="/" aria-label="Torna alla home"><img className="w-[222px] max-sm:w-[174px]" src="/assets/nebbia-logo.svg" alt="Nebbia Phygital Lab" /></Link>
         <Link className="text-sm uppercase" to="/">← Tutti i lavori</Link>
       </header>
 
-      <section className="relative mt-[50px] h-[72vh] min-h-[520px] max-h-[820px] overflow-hidden bg-[#d9ff36]">
+      <section className="relative mt-[50px] h-[72vh] min-h-[520px] max-h-[820px] overflow-hidden bg-[#ff3700]">
         {work.heroType === 'video' ? (
           <video className="h-full min-h-[520px] w-full object-cover" src={work.hero} autoPlay muted loop playsInline preload="metadata" aria-label={work.title} />
         ) : (
@@ -145,12 +145,12 @@ export function WorkPage() {
         <h1 className="sr-only">{work.title}</h1>
       </section>
 
-      <section className="grid grid-cols-3 bg-[#ff3700] text-black border-b border-t border-black/30 max-md:grid-cols-1">
-        <div className="border-r border-black/30 p-[56px_30px] max-sm:p-[36px_18px] max-md:border-b max-md:border-r-0">
+      <section className="grid grid-cols-3 border-b border-t border-[#1a1a1a]/30 bg-[#ff3700] text-[#1a1a1a] max-md:grid-cols-1">
+        <div className="border-r border-[#1a1a1a]/30 p-[56px_30px] max-md:border-b max-md:border-r-0 max-sm:p-[36px_18px]">
           <p className="mb-7 mt-0 text-md uppercase opacity-55">Challenge</p>
           <p className="m-0 text-lg leading-tight">{work.challenge ?? work.statement}</p>
         </div>
-          <div className="border-r border-black/30 p-[56px_30px] max-sm:border-b max-sm:border-r-0 max-sm:p-[36px_18px]">
+          <div className="border-r border-[#1a1a1a]/30 p-[56px_30px] max-sm:border-b max-sm:border-r-0 max-sm:p-[36px_18px]">
               <p className="mb-7 mt-0 text-md uppercase opacity-55">Client</p>
               <p className="m-0 text-lg leading-tight">{work.client}, {work.year}</p></div>
           <div className="p-[56px_30px] max-sm:p-[36px_18px]">
@@ -164,7 +164,7 @@ export function WorkPage() {
           {section.blocks.length > 0 ? section.blocks.map((block, blockIndex) => (
             <SectionLayoutBlock key={`${block.kind}-${blockIndex}`} block={block} section={section} workTitle={work.title} blockIndex={blockIndex} />
           )) : (
-            <div className="border-b border-white/30"><SectionCopy section={section} /></div>
+            <div className="border-b border-[#1a1a1a]/30"><SectionCopy section={section} /></div>
           )}
         </section>
       ))}
@@ -179,14 +179,17 @@ export function WorkPage() {
       </section>}
 
       <nav className="grid grid-cols-2 max-md:grid-cols-1">
-        <Link className="group h-[124px] border-r border-white/30 p-[30px] max-md:border-b max-md:border-r-0 max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: previous.slug }}><span className="text-xs uppercase opacity-55">Previous project</span><h2 className="mb-0 mt-4 text-2xl font-extralight leading-[.9] tracking-[-.06em] transition group-hover:translate-x-2">← {previous.title}</h2></Link>
-        <Link className="group h-[124px] bg-[#ff3700] p-[30px] text-[#1a1a1a] max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: next.slug }}><span className="text-xs uppercase">Next project</span><h2 className="mb-0 mt-4 text-2xl font-extralight leading-[.9] transition group-hover:translate-x-2">{next.title} →</h2></Link>
+        <Link className="group h-[124px] border-r border-white/30 p-[30px] max-md:border-b max-md:border-r-0 max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: previous.slug }}>
+            <span className="text-xs uppercase opacity-55">Previous project</span>
+            <h2 className="mb-0 mt-4 text-2xl font-extralight leading-[.9] transition group-hover:translate-x-2">← {previous.title}</h2>
+        </Link>
+        <Link className="group h-[124px] bg-[#ff3700] p-[30px] text-[#1a1a1a] max-sm:p-[18px]" to="/works/$workSlug" params={{ workSlug: next.slug }}>
+            <span className="text-xs uppercase">Next project</span>
+            <h2 className="mb-0 mt-4 text-2xl font-extralight leading-[.9] transition group-hover:translate-x-2">{next.title} →</h2>
+        </Link>
       </nav>
 
-      <footer className="fixed inset-x-0 bottom-0 z-20 text-xs">
-        {/*<FooterBlur />*/}
-        <div className="flex h-[50px] items-center justify-between bg-[#1a1a1a] px-[30px] max-sm:h-[42px] max-sm:px-[18px]"><span>Cremona (IT)</span><Link to="/">Nebbia Phygital Lab</Link></div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

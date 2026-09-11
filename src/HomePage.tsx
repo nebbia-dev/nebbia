@@ -1,49 +1,22 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import { getFeaturedProjects, projectsQueryOptions } from './supabaseProjects';
 import { usePageMeta } from './usePageMeta';
 import {Arrow} from "./_components/icons/Arrow";
-import { FooterBlur } from './_components/FooterBlur';
+import { SiteFooter } from './_components/SiteFooter';
 
 const line = 'border-white/30';
 const field = `h-[54px] w-full border border-white/30 bg-transparent px-[14px] outline-none placeholder:text-white/65 focus:relative focus:z-10 focus:border-[#ff3700]`;
-const footerBackdropBlur = '64px';
-
-type WeatherResponse = {
-  condition: string;
-  temperature: number;
-};
-
-async function getCremonaWeather(): Promise<WeatherResponse> {
-  const response = await fetch('/api/weather');
-  if (!response.ok) throw new Error('Meteo non disponibile');
-  return response.json() as Promise<WeatherResponse>;
-}
-
 export function HomePage() {
   const [worksView, setWorksView] = useState<'selected' | 'all'>('selected');
   const [menuOpen, setMenuOpen] = useState(false);
-  const [time, setTime] = useState('');
   const [sent, setSent] = useState(false);
-  const weather = useQuery({
-    queryKey: ['weather', 'cremona'],
-    queryFn: getCremonaWeather,
-    staleTime: 10 * 60 * 1_000,
-    refetchInterval: 10 * 60 * 1_000,
-  });
   const projectsQuery = useQuery(projectsQueryOptions);
   const works = projectsQuery.data ?? [];
   const featuredWorks = getFeaturedProjects(works);
 
   usePageMeta('Nebbia — Phygital Lab', 'Creatività, innovazione e comunicazione tra analogico e digitale.');
-
-  useEffect(() => {
-    const update = () => setTime(new Intl.DateTimeFormat('it-IT', { hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Rome' }).format(new Date()));
-    update();
-    const timer = window.setInterval(update, 30000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -52,7 +25,7 @@ export function HomePage() {
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#1a1a1a] pb-[50px] text-white selection:bg-[#d9ff36] selection:text-[#1a1a1a] max-sm:pb-[42px]">
+    <main className="min-h-screen overflow-x-hidden bg-[#1a1a1a] pb-[50px] text-white selection:bg-[#ff3700] selection:text-[#1a1a1a] max-sm:pb-[42px]">
       <header className="fixed inset-x-0 top-0 z-50 flex h-[60px] items-center justify-between border-b border-white/10 bg-[#1a1a1a] px-[30px] max-sm:px-[18px]">
         <a className="inline-flex items-center" href="#top" aria-label="Nebbia, torna all'inizio">
           <img className="w-[222px] max-sm:w-[174px]" src="/assets/nebbia-logo.svg" alt="Nebbia Phygital Lab" />
@@ -77,15 +50,15 @@ export function HomePage() {
 
       <section className="relative mt-[50px] h-[620px] overflow-hidden max-sm:h-[660px]" id="top">
         <img className="absolute inset-0 h-full w-full object-cover" src="/assets/hero.jpg" alt="" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/15 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#1a1a1a]/15 to-transparent" />
         <div className="relative z-10 flex h-full flex-col justify-between px-[30px] font-extralight py-12 text-[clamp(18px,1.58vw,24px)] leading-[1.38] max-sm:px-[18px] max-sm:py-9 max-sm:text-[17px]">
           <p className="m-0 max-w-[92%]">
-            <span className="text-black bg-[#ff3700] p-1">NEBBIA Phygital Lab,</span>
+            <span className="bg-[#ff3700] p-1 text-[#1a1a1a]">NEBBIA Phygital Lab,</span>
             <br className="max-sm:hidden" /> connessioni e idee che abbattono<br className="max-sm:hidden" />
             le barriere tra l’analogico e il digitale.
           </p>
           <p className="m-0 max-w-[92%] self-end text-right max-sm:max-w-[84%]">
-            <span className="text-black bg-[#ff3700] p-1">NEBBIA® è un laboratorio phygital,</span>
+            <span className="bg-[#ff3700] p-1 text-[#1a1a1a]">NEBBIA® è un laboratorio phygital,</span>
             <br className="max-sm:hidden" /> dove creatività, innovazione e comunicazione<br className="max-sm:hidden" />
             convergono per supportare aziende e persone.
           </p>
@@ -118,7 +91,7 @@ export function HomePage() {
             {featuredWorks.map((work) => (
               <Link className="group relative min-w-0 overflow-hidden border-r border-white/30 last:border-r-0 max-sm:h-[68vh] max-sm:min-h-[420px] max-sm:border-r-0 max-sm:border-b" to="/works/$workSlug" params={{ workSlug: work.slug }} key={work.slug}>
                 <img className="h-full w-full object-cover brightness-[.8] saturate-[.78] transition duration-700 group-hover:scale-[1.04] group-hover:brightness-[.92]" src={work.image} alt="" />
-                <div className="absolute inset-0 flex flex-col justify-between bg-black/50 transition duration-700 group-hover:bg-[#ff3700]/50 p-[25px_30px_23px] max-sm:p-[21px_18px]">
+                <div className="absolute inset-0 flex flex-col justify-between bg-[#1a1a1a]/50 p-[25px_30px_23px] transition duration-700 group-hover:bg-[#ff3700]/50 max-sm:p-[21px_18px]">
                   <h2 className="m-0 max-w-[90%] text-[clamp(21px,1.95vw,28px)] font-extralight leading-[1.08]">{work.title}</h2>
                   <p className="m-auto mb-0 mr-10 text-[13px]">{work.services}</p>
                   <span className="absolute bottom-5 right-6 grid size-[34px] -rotate-12 place-items-center rounded-full border border-white opacity-0 transition group-hover:rotate-0 group-hover:opacity-100 max-sm:right-[18px] max-sm:opacity-100" aria-hidden="true">↗</span>
@@ -148,12 +121,12 @@ export function HomePage() {
           <aside className="flex min-w-0 flex-col border-r border-white/30 p-[48px_30px_38px] max-lg:min-h-[420px] max-lg:border-b max-lg:border-r-0 max-sm:min-h-[390px] max-sm:px-[18px]">
             <p className="mb-[34px] mt-0 text-base font-light uppercase">Informazioni generali</p>
             <address className="text-[clamp(20px,2.1vw,29px)] font-extralight not-italic leading-[1.26]">Via dell&apos;Innovazione digitale, 3<br />26100 Cremona, Italia<br />P.I. 01618080194</address>
-            <a className="mt-auto break-words text-[clamp(24px,4.3vw,62px)] font-light leading-[.95]" href="mailto:info@nebbialab.it">info@nebbialab.it <sup className="text-[.4em]">↗</sup></a>
+            <a className="mt-auto break-words text-[clamp(24px,4.3vw,62px)] font-extralight leading-[.95]" href="mailto:info@nebbialab.it">info@nebbialab.it <sup className="text-[.4em]">↗</sup></a>
           </aside>
           <div className="p-[46px_30px_38px] max-sm:px-[18px]">
             <h3 className="mb-[70px] mt-0 text-[clamp(20px,2vw,27px)] font-extralight uppercase leading-[1.12] max-lg:mb-[42px]">Hai bisogno di maggiori info?<br />Scrivici!</h3>
             <form onSubmit={handleSubmit}>
-              <div className="grid grid-cols-2 max-sm:grid-cols-1 text-black">
+              <div className="grid grid-cols-2 text-[#1a1a1a] max-sm:grid-cols-1">
                 <input className={field} name="nome" placeholder="Nome" aria-label="Nome" required />
                 <input className={`${field} border-l-0 max-sm:-mt-px max-sm:border-l`} name="cognome" placeholder="Cognome" aria-label="Cognome" required />
               </div>
@@ -167,7 +140,7 @@ export function HomePage() {
               </select>
               <textarea className={`${field} -mt-px h-[190px] resize-y py-[15px]`} name="messaggio" placeholder="Message" aria-label="Messaggio" required />
               <button className="mt-[7px] flex h-[54px] w-full cursor-pointer items-center justify-between border border-white bg-white px-[15px] uppercase text-[#1a1a1a] transition hover:border-[#ff3700] hover:bg-[#ff3700]" type="submit">Invia <span className="text-xl" aria-hidden="true">↗</span></button>
-              {sent && <p className="mt-3 text-[11px] text-[#d9ff36]" role="status">Messaggio acquisito nella demo. Collega qui il tuo servizio email per l’invio reale.</p>}
+              {sent && <p className="mt-3 text-[11px] text-[#ff3700]" role="status">Messaggio acquisito nella demo. Collega qui il tuo servizio email per l’invio reale.</p>}
             </form>
           </div>
         </div>
@@ -178,7 +151,7 @@ export function HomePage() {
         <div className="grid min-h-[540px] grid-cols-2 max-lg:grid-cols-1">
           <div className="p-[48px_30px] max-lg:min-h-[430px] max-sm:px-[18px]">
             <p className="mb-[34px] mt-0 text-base font-light uppercase">Posizioni aperte</p>
-            <p className="m-0 text-[clamp(25px,3vw,44px)] font-light leading-[1.08]">Vuoi far parte del nostro team?<br />
+            <p className="m-0 text-4xl font-extralight leading-[1.08]">Vuoi far parte del nostro team?<br />
               Consulta le posizioni aperte<br />e candidati per avere l’opportunità<br />
               di partecipare a un colloquio con noi.</p></div>
           <Link className="career-cta group relative grid min-h-[540px] place-items-center overflow-hidden bg-[#f0eee8] text-center uppercase text-[#1a1a1a] transition hover:bg-[#ff3700] max-sm:min-h-[100vw]" to="/candidati-ora">
@@ -194,21 +167,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <footer className="fixed inset-x-0 bottom-0 z-[60] text-xs max-sm:text-[10px]">
-        {/*<FooterBlur />*/}
-        <div className="flex h-[50px] items-center gap-3 bg-[#1a1a1a] px-[30px] max-sm:h-[42px] max-sm:gap-2 max-sm:px-[18px]">
-          <span>Cremona (IT)</span><i className="h-3 w-px bg-white/45" />
-          <span>Time: <time>{time || '--:--'}</time></span><i className="h-3 w-px bg-white/45" />
-          <span id="weather" className="flex items-center gap-1.5" aria-live="polite">
-            {weather.isPending
-              ? 'Meteo: --'
-              : weather.isError
-                ? 'Meteo non disponibile'
-                : `${weather.data.condition}, ${weather.data.temperature}°C`}
-          </span>
-          <small className="ml-auto text-[10px] opacity-50 max-sm:hidden">© {new Date().getFullYear()} Nebbia Phygital Lab</small>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }

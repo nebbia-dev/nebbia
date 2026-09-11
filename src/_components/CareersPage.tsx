@@ -1,9 +1,9 @@
 import { type ChangeEvent, type FormEvent, useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import { usePageMeta } from '../usePageMeta';
-import { FooterBlur } from './FooterBlur';
+import { SiteFooter } from './SiteFooter';
 
-const fieldClass = 'min-h-[58px] w-full border border-white/30 bg-transparent px-4 text-base text-white outline-none transition placeholder:text-white/40 focus:relative focus:z-10 focus:border-[#d9ff36]';
+const fieldClass = 'min-h-[58px] w-full border border-white/30 bg-transparent px-4 text-base text-white outline-none transition placeholder:text-white/40 focus:relative focus:z-10 focus:border-[#ff3700]';
 
 export function CareersPage() {
   const [fileName, setFileName] = useState('');
@@ -34,7 +34,7 @@ export function CareersPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#1a1a1a] pb-[50px] text-white selection:bg-[#d9ff36] selection:text-[#1a1a1a] max-sm:pb-[42px]">
+    <main className="min-h-screen bg-[#1a1a1a] pb-[50px] text-white selection:bg-[#ff3700] selection:text-[#1a1a1a] max-sm:pb-[42px]">
       <header className="fixed inset-x-0 top-0 z-50 flex h-[60px] items-center justify-between border-b border-white/20 bg-[#1a1a1a] px-[30px] max-sm:px-[18px]">
         <Link className="inline-flex items-center" to="/" aria-label="Nebbia, torna alla home">
           <img className="w-[222px] max-sm:w-[174px]" src="/assets/nebbia-logo.svg" alt="Nebbia Phygital Lab" />
@@ -88,7 +88,7 @@ export function CareersPage() {
               <input className={`${fieldClass} -mt-px`} name="portfolio" type="url" inputMode="url" placeholder="Portfolio o profilo LinkedIn" aria-label="Portfolio o profilo LinkedIn" />
               <textarea className={`${fieldClass} -mt-px min-h-[180px] resize-y py-4`} name="presentazione" placeholder="Parlaci di te *" aria-label="Presentazione" required />
 
-              <label className="-mt-px flex min-h-[78px] cursor-pointer items-center justify-between gap-5 border border-white/30 px-4 transition hover:border-white focus-within:border-[#d9ff36]">
+              <label className="-mt-px flex min-h-[78px] cursor-pointer items-center justify-between gap-5 border border-white/30 px-4 transition hover:border-white focus-within:border-[#ff3700]">
                 <span>
                   <span className="block text-sm">{fileName || 'Allega il tuo CV *'}</span>
                   <span className="mt-1 block text-[10px] uppercase opacity-45">PDF, DOC o DOCX · massimo 10 MB</span>
@@ -99,14 +99,14 @@ export function CareersPage() {
               {fileError && <p className="mb-0 mt-2 text-sm text-[#ff5b38]" role="alert">{fileError}</p>}
 
               <label className="flex cursor-pointer items-start gap-3 py-6 text-xs leading-relaxed text-white/65">
-                <input className="mt-0.5 size-4 shrink-0 accent-[#d9ff36]" name="privacy" type="checkbox" required />
+                <input className="mt-0.5 size-4 shrink-0 accent-[#ff3700]" name="privacy" type="checkbox" required />
                 <span>Ho letto la <a className="text-white underline underline-offset-4" href="https://www.iubenda.com/privacy-policy/36366271" target="_blank" rel="noreferrer">Privacy Policy</a> e acconsento al trattamento dei dati per la gestione della candidatura. *</span>
               </label>
 
-              <button className="flex h-[58px] w-full cursor-pointer items-center justify-between border border-white bg-white px-4 uppercase text-[#1a1a1a] transition hover:border-[#ff3700] hover:bg-[#ff3700] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d9ff36]" type="submit">
+              <button className="flex h-[58px] w-full cursor-pointer items-center justify-between border border-white bg-white px-4 uppercase text-[#1a1a1a] transition hover:border-[#ff3700] hover:bg-[#ff3700] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ff3700]" type="submit">
                 Invia candidatura <span className="text-xl" aria-hidden="true">↗</span>
               </button>
-              {submitted && <p className="mb-0 mt-4 text-sm text-[#d9ff36]" role="status">Candidatura acquisita nella demo. Collega un servizio email o di archiviazione per attivare l’invio reale.</p>}
+              {submitted && <p className="mb-0 mt-4 text-sm text-[#ff3700]" role="status">Candidatura acquisita nella demo. Collega un servizio email o di archiviazione per attivare l’invio reale.</p>}
             </form>
           </div>
         </div>
@@ -118,12 +118,7 @@ export function CareersPage() {
         <div className="flex flex-col p-[28px_30px] max-sm:px-[18px]"><p className="mb-6 mt-0 uppercase opacity-45">Contatti</p><a href="mailto:info@nebbialab.it">info@nebbialab.it</a><a className="mt-2" href="https://www.linkedin.com/company/nebbia-phygital-lab/" target="_blank" rel="noreferrer">LinkedIn ↗</a></div>
       </div>
 
-      <footer className="fixed inset-x-0 bottom-0 z-50 text-xs">
-        {/*<FooterBlur />*/}
-        <div className="flex h-[50px] items-center justify-between bg-[#1a1a1a] px-[30px] max-sm:h-[42px] max-sm:px-[18px]">
-          <span>Cremona (IT)</span><Link to="/">Nebbia Phygital Lab</Link>
-        </div>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
